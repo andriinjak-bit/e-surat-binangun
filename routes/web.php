@@ -58,5 +58,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/admin/surat', [SuratController::class, 'index'])->name('admin.surat');
         Route::put('/admin/surat/{surat}', [SuratController::class, 'update'])->name('admin.surat.update');
+
+        // Data Sipil (Penduduk) Routes
+        Route::post('/penduduk/import', [\App\Http\Controllers\PendudukController::class, 'import'])->name('penduduk.import');
+        Route::resource('penduduk', \App\Http\Controllers\PendudukController::class);
     });
 });
