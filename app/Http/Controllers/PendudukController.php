@@ -18,10 +18,6 @@ class PendudukController extends Controller
             $query->where('rw', $request->rw);
         }
 
-        if ($request->filled('usia')) {
-            $query->where('usia', $request->usia);
-        }
-
         if ($request->filled('search')) {
             $query->where('nama', 'like', '%' . $request->search . '%')
                   ->orWhere('nik', 'like', '%' . $request->search . '%');
@@ -31,7 +27,7 @@ class PendudukController extends Controller
 
         return view('penduduk.index', [
             'penduduks' => $penduduks,
-            'filters' => $request->only(['rt', 'rw', 'usia', 'search']),
+            'filters' => $request->only(['rt', 'rw', 'search']),
         ]);
     }
 
@@ -46,7 +42,6 @@ class PendudukController extends Controller
             'no_kk' => 'required|string',
             'nik' => 'required|string|unique:penduduks,nik',
             'nama' => 'required|string',
-            'usia' => 'required|integer',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'tempat_tanggal_lahir' => 'required|string',
             'pekerjaan' => 'required|string',
@@ -77,7 +72,6 @@ class PendudukController extends Controller
             'no_kk' => 'required|string',
             'nik' => 'required|string|unique:penduduks,nik,' . $penduduk->id,
             'nama' => 'required|string',
-            'usia' => 'required|integer',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'tempat_tanggal_lahir' => 'required|string',
             'pekerjaan' => 'required|string',

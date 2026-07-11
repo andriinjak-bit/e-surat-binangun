@@ -27,7 +27,6 @@ class PendudukImport implements ToModel, WithHeadingRow, WithChunkReading, WithB
             'no_kk' => $row['no_kk'] ?? '',
             'nik' => $row['nik'],
             'nama' => $row['nama'] ?? '',
-            'usia' => $row['usia'] ?? 0,
             'jenis_kelamin' => $row['jenis_kelamin'] ?? 'Laki-laki',
             'tempat_tanggal_lahir' => $row['tempat_tanggal_lahir'] ?? '',
             'pekerjaan' => $row['pekerjaan'] ?? '',

@@ -31,10 +31,6 @@
                     <input type="text" name="nama" value="{{ old('nama') }}" class="border rounded px-3 py-2 w-full" required>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Usia</label>
-                    <input type="number" name="usia" value="{{ old('usia') }}" class="border rounded px-3 py-2 w-full" required>
-                </div>
-                <div>
                     <label class="block text-sm font-medium mb-1">Jenis Kelamin</label>
                     <select name="jenis_kelamin" class="border rounded px-3 py-2 w-full" required>
                         <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
@@ -42,7 +38,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Tempat, Tanggal Lahir</label>
+                    <label class="block text-sm font-medium mb-1">Tempat, Tanggal Lahir (Contoh: Blitar, 1 Januari 2000)</label>
                     <input type="text" name="tempat_tanggal_lahir" value="{{ old('tempat_tanggal_lahir') }}" class="border rounded px-3 py-2 w-full" required>
                 </div>
                 <div>

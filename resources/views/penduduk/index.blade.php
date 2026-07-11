@@ -23,15 +23,23 @@
             </div>
             <div>
                 <label class="block text-sm font-medium mb-1">Filter RT</label>
-                <input type="text" name="rt" value="{{ request('rt') }}" class="border rounded px-3 py-2 w-32" placeholder="Misal: 01">
+                <select name="rt" class="border rounded px-3 py-2 w-32">
+                    <option value="">Semua RT</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        @php $rt_val = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
+                        <option value="{{ $rt_val }}" {{ request('rt') == $rt_val ? 'selected' : '' }}>{{ $rt_val }}</option>
+                    @endfor
+                </select>
             </div>
             <div>
                 <label class="block text-sm font-medium mb-1">Filter RW</label>
-                <input type="text" name="rw" value="{{ request('rw') }}" class="border rounded px-3 py-2 w-32" placeholder="Misal: 02">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-1">Filter Usia</label>
-                <input type="number" name="usia" value="{{ request('usia') }}" class="border rounded px-3 py-2 w-32" placeholder="Misal: 30">
+                <select name="rw" class="border rounded px-3 py-2 w-32">
+                    <option value="">Semua RW</option>
+                    @for ($i = 1; $i <= 5; $i++)
+                        @php $rw_val = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
+                        <option value="{{ $rw_val }}" {{ request('rw') == $rw_val ? 'selected' : '' }}>{{ $rw_val }}</option>
+                    @endfor
+                </select>
             </div>
             <div>
                 <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900">Filter</button>
