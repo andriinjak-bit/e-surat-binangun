@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form action="{{ route('penduduk.store') }}" method="POST">
+        <form action="{{ route('admin.penduduk.store') }}" method="POST">
             @csrf
             <div class="grid md:grid-cols-2 gap-4">
                 <div>
@@ -79,7 +79,7 @@
                 <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                     Simpan
                 </button>
-                <a href="{{ route('penduduk.index') }}" class="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                <a href="{{ route('admin.penduduk.index') }}" class="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
                     Batal
                 </a>
             </div>

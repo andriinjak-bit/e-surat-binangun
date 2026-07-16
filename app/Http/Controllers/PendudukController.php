@@ -25,7 +25,7 @@ class PendudukController extends Controller
 
         $penduduks = $query->paginate(15)->withQueryString();
 
-        return view('penduduk.index', [
+        return view('admin.penduduk.index', [
             'penduduks' => $penduduks,
             'filters' => $request->only(['rt', 'rw', 'search']),
         ]);
@@ -33,7 +33,7 @@ class PendudukController extends Controller
 
     public function create()
     {
-        return view('penduduk.create');
+        return view('admin.penduduk.create');
     }
 
     public function store(Request $request)
@@ -55,13 +55,14 @@ class PendudukController extends Controller
         ]);
 
         \App\Models\Penduduk::create($validated);
+        \App\Models\ActivityLog::record('Create Penduduk', 'Menambahkan penduduk: ' . $validated['nama']);
 
-        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');
+        return redirect()->route('admin.penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');
     }
 
     public function edit(\App\Models\Penduduk $penduduk)
     {
-        return view('penduduk.edit', [
+        return view('admin.penduduk.edit', [
             'penduduk' => $penduduk
         ]);
     }
@@ -85,14 +86,17 @@ class PendudukController extends Controller
         ]);
 
         $penduduk->update($validated);
+        \App\Models\ActivityLog::record('Update Penduduk', 'Mengubah data penduduk: ' . $penduduk->nama);
 
-        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil diperbarui.');
+        return redirect()->route('admin.penduduk.index')->with('success', 'Data penduduk berhasil diperbarui.');
     }
 
     public function destroy(\App\Models\Penduduk $penduduk)
     {
+        $nama = $penduduk->nama;
         $penduduk->delete();
-        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil dihapus.');
+        \App\Models\ActivityLog::record('Delete Penduduk', 'Menghapus data penduduk: ' . $nama);
+        return redirect()->route('admin.penduduk.index')->with('success', 'Data penduduk berhasil dihapus.');
     }
 
     public function import(Request $request)
@@ -102,6 +106,7 @@ class PendudukController extends Controller
         ]);
 
         \Maatwebsite\Excel\Facades\Excel::queueImport(new \App\Imports\PendudukImport, $request->file('file'));
+        \App\Models\ActivityLog::record('Import Penduduk', 'Mulai memproses import CSV penduduk di background.');
 
         return redirect()->back()->with('success', 'Data penduduk sedang di-import di background.');
     }

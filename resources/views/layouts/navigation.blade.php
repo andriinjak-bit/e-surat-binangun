@@ -17,7 +17,7 @@
                 @auth
                     <!-- Profile Link -->
                     <a href="{{ route('profile.index') }}" class="text-gray-300 hover:text-[#E8A317] transition">
-                        <i class="fas fa-user"></i> Profil
+                     Profil
                     </a>
                     
                     <!-- Dashboard -->
@@ -31,8 +31,12 @@
                     <!-- PENDUDUK - Only for Admin -->
                     <!-- ========================================== -->
                     @if(Auth::user()->is_admin)
-                        <a href="{{ route('penduduk.index') }}" class="text-gray-300 hover:text-[#E8A317] transition">
-                            <i class="fas fa-users"></i> Penduduk
+                        <a href="{{ route('admin.penduduk.index') }}" class="text-gray-300 hover:text-[#E8A317] transition">
+                        Penduduk
+                        </a>
+                        <!-- Activity Logs -->
+                        <a href="{{ route('admin.logs') }}" class="text-gray-300 hover:text-[#E8A317] transition">
+                        Activity Logs
                         </a>
                     @endif
                     

@@ -89,13 +89,16 @@ Route::middleware(['auth'])->group(function () {
     // ==========================================
 
     Route::middleware(['admin'])->group(function () {
-        
         // Admin Dashboard
         Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/admin/users', [AdminDashboardController::class, 'users'])->name('admin.users');
         Route::post('/admin/users/{user}/toggle-admin', [AdminDashboardController::class, 'toggleAdmin'])->name('admin.users.toggle-admin');
         Route::post('/admin/users/{user}/toggle-active', [AdminDashboardController::class, 'toggleActive'])->name('admin.users.toggle-active');
         Route::delete('/admin/users/{user}', [AdminDashboardController::class, 'deleteUser'])->name('admin.users.delete');
+        
+        // Activity Logs
+        Route::get('/admin/logs', [\App\Http\Controllers\ActivityLogController::class, 'index'])->name('admin.logs');
+
 
         // Admin Notifications
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
@@ -114,12 +117,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/admin/surat/{surat}/upload', [SuratController::class, 'adminUpload'])->name('admin.surat.upload');
 
         // DATA SIPIL (PENDUDUK) ROUTES
-        Route::get('/penduduk', [PendudukController::class, 'index'])->name('penduduk.index');
-        Route::get('/penduduk/create', [PendudukController::class, 'create'])->name('penduduk.create');
-        Route::post('/penduduk', [PendudukController::class, 'store'])->name('penduduk.store');
-        Route::get('/penduduk/{penduduk}/edit', [PendudukController::class, 'edit'])->name('penduduk.edit');
-        Route::put('/penduduk/{penduduk}', [PendudukController::class, 'update'])->name('penduduk.update');
-        Route::delete('/penduduk/{penduduk}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
-        Route::post('/penduduk/import', [PendudukController::class, 'import'])->name('penduduk.import');
+        Route::get('/admin/penduduk', [PendudukController::class, 'index'])->name('admin.penduduk.index');
+        Route::get('/admin/penduduk/create', [PendudukController::class, 'create'])->name('admin.penduduk.create');
+        Route::post('/admin/penduduk', [PendudukController::class, 'store'])->name('admin.penduduk.store');
+        Route::get('/admin/penduduk/{penduduk}/edit', [PendudukController::class, 'edit'])->name('admin.penduduk.edit');
+        Route::put('/admin/penduduk/{penduduk}', [PendudukController::class, 'update'])->name('admin.penduduk.update');
+        Route::delete('/admin/penduduk/{penduduk}', [PendudukController::class, 'destroy'])->name('admin.penduduk.destroy');
+        Route::post('/admin/penduduk/import', [PendudukController::class, 'import'])->name('admin.penduduk.import');
     });
 });

@@ -49,6 +49,9 @@ public function store(Request $request)
         'form_data' => $formData,
         'status' => 'pending',
     ]);
+    
+    \App\Models\ActivityLog::record('Ajukan Surat', 'Mengajukan surat jenis: ' . $jenis);
+
 
     if ($request->action === 'submit') {
         $surat->update(['status' => 'diproses']);
@@ -255,6 +258,8 @@ public function preview(Surat $surat)
             'status' => 'selesai',
             'verified_at' => now(),
         ]);
+        
+        \App\Models\ActivityLog::record('Update Status Surat', 'Mengubah status surat ID ' . $surat->id . ' menjadi ' . $request->status);
 
         return back()->with('success', 'File berhasil diupload!');
     }

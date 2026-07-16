@@ -26,6 +26,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
+            \App\Models\ActivityLog::record('Login', 'Pengguna melakukan login');
             return redirect()->intended('/dashboard');
         }
 
@@ -65,12 +66,14 @@ class AuthController extends Controller
         }
 
         Auth::login($user);
+        \App\Models\ActivityLog::record('Register', 'Pengguna mendaftarkan akun baru');
 
         return redirect('/dashboard');
     }
 
     public function logout()
     {
+        \App\Models\ActivityLog::record('Logout', 'Pengguna melakukan logout');
         Auth::logout();
         return redirect('/');
     }

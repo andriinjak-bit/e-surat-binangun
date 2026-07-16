@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('surat_comments', function (Blueprint $table) {
+        Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('action')->index();
+            $table->text('description');
             $table->timestamps();
+
+            // Indexes for faster filtering
+            $table->index('created_at');
         });
     }
 
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surat_comments');
+        Schema::dropIfExists('activity_logs');
     }
 };
