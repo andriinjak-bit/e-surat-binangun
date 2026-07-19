@@ -22,17 +22,19 @@ class PendudukSeeder extends Seeder
             $rw = $rws[array_rand($rws)];
             
             Penduduk::create([
-                'no_kk' => '3505' . str_pad(rand(1, 9999), 12, '0', STR_PAD_LEFT),
                 'nik' => '3505' . str_pad(rand(1, 9999), 12, '0', STR_PAD_LEFT),
+                'no_kk' => '3505' . str_pad(rand(1, 9999), 12, '0', STR_PAD_LEFT),
                 'nama' => 'Warga Sampel ' . $i,
-                'jenis_kelamin' => $i % 2 == 0 ? 'Perempuan' : 'Laki-laki',
-                'tempat_tanggal_lahir' => 'Blitar, ' . rand(1, 28) . ' Jan ' . rand(1950, 2010),
+                'jenis_kelamin' => $i % 2 == 0 ? 2 : 1, // 1: Laki-laki, 2: Perempuan
+                'tempat_lahir' => 'Blitar',
+                'tanggal_lahir' => rand(1950, 2010) . '-01-' . str_pad(rand(1, 28), 2, '0', STR_PAD_LEFT),
                 'pekerjaan' => 'Petani/Pekebun',
                 'agama' => 'Islam',
                 'pendidikan' => 'SLTA / Sederajat',
-                'status' => 'Belum Kawin',
+                'status_pernikahan' => 'Belum Kawin',
                 'shdk' => 'Anak',
                 'alamat' => 'Dusun Binangun RT ' . $rt . ' RW ' . $rw,
+                'dusun' => 'Binangun',
                 'rt' => $rt,
                 'rw' => $rw,
             ]);

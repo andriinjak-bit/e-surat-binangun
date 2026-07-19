@@ -39,19 +39,21 @@ class PendudukController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'no_kk' => 'required|string',
+            'no_kk' => 'nullable|string',
             'nik' => 'required|string|unique:penduduks,nik',
             'nama' => 'required|string',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'tempat_tanggal_lahir' => 'required|string',
-            'pekerjaan' => 'required|string',
-            'agama' => 'required|string',
-            'pendidikan' => 'required|string',
-            'status' => 'required|string',
-            'shdk' => 'required|string',
+            'jenis_kelamin' => 'required|in:1,2',
+            'tempat_lahir' => 'required|string',
+            'tanggal_lahir' => 'required|date',
+            'pekerjaan' => 'nullable|string',
+            'agama' => 'nullable|string',
+            'pendidikan' => 'nullable|string',
+            'status_pernikahan' => 'nullable|string',
+            'shdk' => 'nullable|string',
             'alamat' => 'required|string',
-            'rt' => 'required|string',
-            'rw' => 'required|string',
+            'rt' => 'nullable|string',
+            'rw' => 'nullable|string',
+            'dusun' => 'nullable|string',
         ]);
 
         \App\Models\Penduduk::create($validated);
@@ -70,19 +72,21 @@ class PendudukController extends Controller
     public function update(Request $request, \App\Models\Penduduk $penduduk)
     {
         $validated = $request->validate([
-            'no_kk' => 'required|string',
+            'no_kk' => 'nullable|string',
             'nik' => 'required|string|unique:penduduks,nik,' . $penduduk->id,
             'nama' => 'required|string',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'tempat_tanggal_lahir' => 'required|string',
-            'pekerjaan' => 'required|string',
-            'agama' => 'required|string',
-            'pendidikan' => 'required|string',
-            'status' => 'required|string',
-            'shdk' => 'required|string',
+            'jenis_kelamin' => 'required|in:1,2',
+            'tempat_lahir' => 'required|string',
+            'tanggal_lahir' => 'required|date',
+            'pekerjaan' => 'nullable|string',
+            'agama' => 'nullable|string',
+            'pendidikan' => 'nullable|string',
+            'status_pernikahan' => 'nullable|string',
+            'shdk' => 'nullable|string',
             'alamat' => 'required|string',
-            'rt' => 'required|string',
-            'rw' => 'required|string',
+            'rt' => 'nullable|string',
+            'rw' => 'nullable|string',
+            'dusun' => 'nullable|string',
         ]);
 
         $penduduk->update($validated);

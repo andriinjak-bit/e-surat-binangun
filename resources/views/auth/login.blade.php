@@ -8,7 +8,7 @@
                 Masuk ke Akun
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
-                Gunakan NIK atau Email yang Anda daftarkan
+                Gunakan NIK yang Anda daftarkan
             </p>
         </div>
 
@@ -22,11 +22,11 @@
             @csrf
 
             <div>
-                <label for="login" class="block font-bold text-gray-700">NIK atau Email</label>
-                <input id="login" name="login" type="text" required 
+                <label for="nik" class="block font-bold text-gray-700">NIK (Nomor Induk Kependudukan)</label>
+                <input id="nik" name="nik" type="text" required 
                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                       placeholder="Masukkan NIK atau Email">
-                <small class="text-gray-500">Contoh: 1234567890123456 atau email@domain.com</small>
+                       placeholder="Masukkan 16 digit NIK">
+                <small class="text-gray-500">Contoh: 1234567890123456</small>
             </div>
 
             <div>
