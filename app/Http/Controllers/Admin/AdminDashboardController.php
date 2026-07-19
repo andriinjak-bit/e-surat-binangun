@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Surat;
+use App\Models\SuratRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AdminDashboardController extends Controller
@@ -22,14 +22,14 @@ class AdminDashboardController extends Controller
         }
 
         // Get statistics
-        $totalSurat = Surat::count();
-        $pendingSurat = Surat::where('status', 'pending')->count();
-        $diprosesSurat = Surat::where('status', 'diproses')->count();
-        $selesaiSurat = Surat::where('status', 'selesai')->count();
+        $totalSurat = SuratRequest::count();
+        $pendingSurat = SuratRequest::where('status', 'pending')->count();
+        $diprosesSurat = SuratRequest::where('status', 'diproses')->count();
+        $selesaiSurat = SuratRequest::where('status', 'selesai')->count();
         $totalUsers = User::count();
 
         // Get recent surat
-        $recentSurat = Surat::with('user')
+        $recentSurat = SuratRequest::with(['user', 'template'])
             ->latest()
             ->take(10)
             ->get();

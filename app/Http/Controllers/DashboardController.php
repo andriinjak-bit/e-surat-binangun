@@ -23,7 +23,10 @@ class DashboardController extends Controller
         // REGULAR USER DASHBOARD
         // ==========================================
         try {
-            $surats = $user->surats()->latest()->get();
+            $surats = \App\Models\SuratRequest::with('template')
+                ->where('user_id', $user->id)
+                ->latest()
+                ->get();
         } catch (\Exception $e) {
             $surats = collect([]); // Empty collection
         }

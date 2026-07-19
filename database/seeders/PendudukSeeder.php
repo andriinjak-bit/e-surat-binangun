@@ -22,8 +22,8 @@ class PendudukSeeder extends Seeder
             $rw = $rws[array_rand($rws)];
             
             Penduduk::create([
-                'no_kk' => '3505' . str_pad(rand(1, 9999), 12, '0', STR_PAD_LEFT),
-                'nik' => '3505' . str_pad(rand(1, 9999), 12, '0', STR_PAD_LEFT),
+                'no_kk' => '3505' . str_pad($i, 12, '0', STR_PAD_LEFT),
+                'nik' => '3505' . str_pad($i, 12, '0', STR_PAD_LEFT),
                 'nama' => 'Warga Sampel ' . $i,
                 'jenis_kelamin' => $i % 2 == 0 ? 'Perempuan' : 'Laki-laki',
                 'tempat_tanggal_lahir' => 'Blitar, ' . rand(1, 28) . ' Jan ' . rand(1950, 2010),

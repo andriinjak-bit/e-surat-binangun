@@ -15,14 +15,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'nik' => '1234567890123456',
-            'name' => 'Admin User',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'), // password default
-            'is_admin' => true,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'nik' => '1234567890123456',
+                'name' => 'Admin User',
+                'password' => bcrypt('password'), // password default
+                'is_admin' => true,
+            ]
+            );
+        User::updateOrCreate(
+            ['email' => 'user@gmail.com'],
+            [
+                'nik' => '1234567890123453',
+                'name' => 'User',
+                'password' => bcrypt('password'), // password default
+                'is_admin' => false,
+            ]
+        );
 
-        $this->call(PendudukSeeder::class);
+        $this->call([
+            PendudukSeeder::class,
+            SuratTemplateSeeder::class,
+        ]);
     }
 }
