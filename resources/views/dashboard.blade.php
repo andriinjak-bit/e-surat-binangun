@@ -7,7 +7,7 @@
 
     <!-- nih tombol Ajukan Surat -->
     <div class="mt-6">
-        <a href="{{ route('surat.create') }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">
+        <a href="{{ route('layanan') }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">
             <i class="fas fa-plus"></i> Ajukan Surat Baru
         </a>
     </div>
@@ -30,7 +30,7 @@
                 <tbody>
                     @forelse ($surats as $surat)
                     <tr class="border-b border-gray-100">
-                        <td class="px-6 py-4 capitalize">{{ $surat->jenis_surat }}</td>
+                        <td class="px-6 py-4 capitalize">{{ $surat->template->judul ?? '-' }}</td>
                         <td class="px-6 py-4">{{ $surat->created_at->format('d M Y') }}</td>
                         <td class="px-6 py-4">
                             @if($surat->status == 'pending')
@@ -44,7 +44,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4">
-                            <a href="{{ route('surat.show', $surat) }}" class="text-blue-600 hover:underline">Detail</a>
+                            <a href="{{ route('surat.request.show', $surat) }}" class="text-blue-600 hover:underline">Detail</a>
                         </td>
                     </tr>
                     @empty

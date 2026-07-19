@@ -31,6 +31,9 @@
                     <!-- PENDUDUK - Only for Admin -->
                     <!-- ========================================== -->
                     @if(Auth::user()->is_admin)
+                        <a href="{{ route('admin.template.index') }}" class="text-gray-300 hover:text-[#E8A317] transition">
+                        Template Surat
+                        </a>
                         <a href="{{ route('admin.penduduk.index') }}" class="text-gray-300 hover:text-[#E8A317] transition">
                         Penduduk
                         </a>

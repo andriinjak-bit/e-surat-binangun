@@ -6,7 +6,7 @@
         <h1 class="text-2xl font-bold text-[#0B2E4F]">Admin Dashboard</h1>
         <div class="flex gap-2">
             <a href="{{ route('admin.users') }}" class="bg-[#E8A317] text-[#061E33] px-4 py-2 rounded-lg hover:bg-[#F4C542] font-bold text-sm">Manage Users</a>
-            <a href="{{ route('admin.surat') }}" class="bg-[#0B2E4F] text-white px-4 py-2 rounded-lg hover:bg-[#1B4A7A] font-bold text-sm">Manage Surat</a>
+            <a href="{{ route('admin.template.index') }}" class="bg-[#0B2E4F] text-white px-4 py-2 rounded-lg hover:bg-[#1B4A7A] font-bold text-sm">Manage Template</a>
         </div>
     </div>
     
@@ -56,8 +56,8 @@
                     <tbody>
                         @foreach($recentSurat as $surat)
                         <tr class="border-b">
-                            <td class="px-4 py-2">{{ $surat->user->name }}</td>
-                            <td class="px-4 py-2 capitalize">{{ $surat->jenis_surat }}</td>
+                            <td class="px-4 py-2">{{ $surat->user->name ?? 'Unknown' }}</td>
+                            <td class="px-4 py-2 capitalize">{{ $surat->template->judul ?? '-' }}</td>
                             <td class="px-4 py-2">{{ $surat->created_at->format('d M Y') }}</td>
                             <td class="px-4 py-2">
                                 @if($surat->status == 'pending')
@@ -71,7 +71,7 @@
                                 @endif
                             </td>
                             <td class="px-4 py-2">
-                                <a href="{{ route('admin.surat.show', $surat) }}" class="text-blue-600 hover:underline text-xs">Detail</a>
+                                <a href="#" class="text-blue-600 hover:underline text-xs">Detail (WIP)</a>
                             </td>
                         </tr>
                         @endforeach

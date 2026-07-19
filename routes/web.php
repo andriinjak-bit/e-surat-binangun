@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\SuratController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendudukController;
@@ -45,7 +44,8 @@ Route::get('/kontak', function () {
 })->name('kontak');
 
 Route::get('/layanan', function () {
-    return view('layanan');
+    $templates = \App\Models\SuratTemplate::all();
+    return view('layanan', compact('templates'));
 })->name('layanan');
 
 Route::get('/beranda', function () {
@@ -75,15 +75,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // ==========================================
-    // USER SURAT ROUTES (No admin middleware)
+    // USER SURAT ROUTES
     // ==========================================
-    Route::get('/surat/create', [SuratController::class, 'create'])->name('surat.create');
-    Route::post('/surat', [SuratController::class, 'store'])->name('surat.store');
-    Route::get('/surat/{surat}/preview', [SuratController::class, 'preview'])->name('surat.preview');
-    Route::post('/surat/{surat}/confirm', [SuratController::class, 'confirm'])->name('surat.confirm');
-    Route::post('/surat/{surat}/revisi', [SuratController::class, 'revisi'])->name('surat.revisi');
-    Route::get('/surat/{surat}', [SuratController::class, 'show'])->name('surat.show');
-    Route::get('/surat/{surat}/download', [SuratController::class, 'download'])->name('surat.download');
+    // Dihapus sesuai permintaan user
+
+    // User Surat Request Routes
+    Route::get('/surat/request/template/{template}', [\App\Http\Controllers\SuratRequestController::class, 'create'])->name('surat.request.create');
+    Route::post('/surat/request/template/{template}', [\App\Http\Controllers\SuratRequestController::class, 'store'])->name('surat.request.store');
+    Route::get('/surat/request/{suratRequest}', [\App\Http\Controllers\SuratRequestController::class, 'show'])->name('surat.request.show');
 
     // ==========================================
     // ADMIN ROUTES (Require Admin Role)
@@ -110,12 +109,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/notifications/clear-all', [NotificationController::class, 'clearAll'])->name('notifications.clear-all');
 
         // Admin Surat Management
-        Route::get('/admin/surat', [SuratController::class, 'index'])->name('admin.surat');
-        Route::get('/admin/surat/{surat}', [SuratController::class, 'adminShow'])->name('admin.surat.show');
-        Route::put('/admin/surat/{surat}/review', [SuratController::class, 'adminReview'])->name('admin.surat.review');
-        Route::post('/admin/surat/{surat}/comment', [SuratController::class, 'adminComment'])->name('admin.surat.comment');
-        Route::put('/admin/surat/{surat}', [SuratController::class, 'adminUpdate'])->name('admin.surat.update');
-        Route::post('/admin/surat/{surat}/upload', [SuratController::class, 'adminUpload'])->name('admin.surat.upload');
+        // Dihapus sesuai permintaan user
+        
+        // Admin Tiptap Surat Template Routes
+        Route::resource('template', \App\Http\Controllers\Admin\SuratTemplateController::class)->names('admin.template');
 
         // DATA SIPIL (PENDUDUK) ROUTES
         Route::get('/admin/penduduk', [PendudukController::class, 'index'])->name('admin.penduduk.index');
