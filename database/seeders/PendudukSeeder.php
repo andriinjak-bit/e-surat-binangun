@@ -16,11 +16,11 @@ class PendudukSeeder extends Seeder
     {
         $rts = ['01', '02', '03', '04', '05'];
         $rws = ['01', '02'];
-        
+
         for ($i = 1; $i <= 30; $i++) {
             $rt = $rts[array_rand($rts)];
             $rw = $rws[array_rand($rws)];
-            
+
             Penduduk::create([
                 'nik' => '3505' . str_pad(rand(1, 9999), 12, '0', STR_PAD_LEFT),
                 'no_kk' => '3505' . str_pad(rand(1, 9999), 12, '0', STR_PAD_LEFT),
