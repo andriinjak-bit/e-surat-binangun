@@ -11,30 +11,9 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
         'nik',
-        'email',
         'password',
         'is_admin',
-        'is_active',
-        'phone',
-        'dusun',
-        'alamat',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'jenis_kelamin',
-        'pekerjaan',
-        'agama',
-        'pendidikan',
-        'status_perkawinan',
-        'shdk',
-        'no_kk',
-        'rt',
-        'rw',
-        'profile_picture',
-        'signature_path',
-        'ktp_path',
-        'kk_path',
     ];
 
     protected $hidden = [
@@ -42,11 +21,18 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'is_admin' => 'boolean',
-        'is_active' => 'boolean',
-        'tanggal_lahir' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'password' => 'hashed',
+            'is_admin' => 'boolean',
+        ];
+    }
+
+    public function penduduk()
+    {
+        return $this->hasOne(Penduduk::class, 'nik', 'nik');
+    }
 
     public function surats()
     {
@@ -59,7 +45,7 @@ class User extends Authenticatable
     }
 
     public function suratComments()
-{
-    return $this->hasMany(SuratComment::class);
-}
+    {
+        return $this->hasMany(SuratComment::class);
+    }
 }

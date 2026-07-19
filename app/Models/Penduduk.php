@@ -2,47 +2,43 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Penduduk extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'no_kk',
         'nik',
+        'no_kk',
         'nama',
-        'usia',
+        'tempat_lahir',
+        'tanggal_lahir',
         'jenis_kelamin',
-        'tempat_tanggal_lahir',
+        'alamat',
+        'dusun',
+        'rt',
+        'rw',
         'pekerjaan',
         'agama',
         'pendidikan',
-        'status',
+        'status_pernikahan',
         'shdk',
-        'alamat',
-        'rt',
-        'rw',
+        'ktp_path',
+        'kk_path',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nik', 'nik');
+    }
 
     public function getUsiaAttribute()
     {
-        try {
-            if (!$this->tempat_tanggal_lahir) return 0;
-            
-            $parts = explode(', ', $this->tempat_tanggal_lahir);
-            if (count($parts) < 2) return 0;
-
-            $dateStr = $parts[1]; // e.g. "10 Jan 1980"
-            $months = [
-                'Jan' => 'Jan', 'Feb' => 'Feb', 'Mar' => 'Mar', 'Apr' => 'Apr', 'Mei' => 'May', 'Jun' => 'Jun',
-                'Jul' => 'Jul', 'Agu' => 'Aug', 'Sep' => 'Sep', 'Okt' => 'Oct', 'Nov' => 'Nov', 'Des' => 'Dec',
-                'Januari' => 'January', 'Februari' => 'February', 'Maret' => 'March', 'April' => 'April', 
-                'Agustus' => 'August', 'September' => 'September', 'Oktober' => 'October', 'November' => 'November', 'Desember' => 'December'
-            ];
-            
-            $dateEn = str_replace(array_keys($months), array_values($months), $dateStr);
-            return \Carbon\Carbon::parse($dateEn)->age;
-        } catch (\Exception $e) {
-            return 0;
+        if ($this->tanggal_lahir) {
+            return \Carbon\Carbon::parse($this->tanggal_lahir)->age;
         }
+        return 0;
     }
 }

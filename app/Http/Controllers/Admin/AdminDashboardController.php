@@ -34,15 +34,15 @@ class AdminDashboardController extends Controller
             ->take(10)
             ->get();
 
-        return view('admin.dashboard', compact(
-            'user',
-            'totalSurat',
-            'pendingSurat',
-            'diprosesSurat',
-            'selesaiSurat',
-            'totalUsers',
-            'recentSurat'
-        ));
+        // Return the React placeholder for now
+        return \Inertia\Inertia::render('Admin/DashboardAdmin', [
+            'totalSurat' => $totalSurat,
+            'pendingSurat' => $pendingSurat,
+            'diprosesSurat' => $diprosesSurat,
+            'selesaiSurat' => $selesaiSurat,
+            'totalUsers' => $totalUsers,
+            'recentSurat' => $recentSurat
+        ]);
     }
 
     /**

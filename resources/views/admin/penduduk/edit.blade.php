@@ -29,7 +29,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
-                    <input type="text" name="nama" value="{{ old('nama', $penduduk->nama) }}" class="border rounded px-3 py-2 w-full" required>
+                    <input type="text" name="name" value="{{ old('name', $penduduk->name) }}" class="border rounded px-3 py-2 w-full" required>
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1">Jenis Kelamin</label>
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1">Status Perkawinan</label>
-                    <input type="text" name="status" value="{{ old('status', $penduduk->status) }}" class="border rounded px-3 py-2 w-full" required>
+                    <input type="text" name="status_pernikahan" value="{{ old('status_pernikahan', $penduduk->status_pernikahan) }}" class="border rounded px-3 py-2 w-full" required>
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1">SHDK (Status Hub. Dalam Keluarga)</label>

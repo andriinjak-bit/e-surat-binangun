@@ -84,14 +84,14 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-2 px-4">{{ $item->no_kk }}</td>
                         <td class="py-2 px-4">{{ $item->nik }}</td>
-                        <td class="py-2 px-4">{{ $item->nama }}</td>
+                        <td class="py-2 px-4">{{ $item->name }}</td>
                         <td class="py-2 px-4">{{ $item->usia }}</td>
                         <td class="py-2 px-4">{{ $item->jenis_kelamin }}</td>
                         <td class="py-2 px-4">{{ $item->tempat_tanggal_lahir }}</td>
                         <td class="py-2 px-4">{{ $item->pekerjaan }}</td>
                         <td class="py-2 px-4">{{ $item->agama }}</td>
                         <td class="py-2 px-4">{{ $item->pendidikan }}</td>
-                        <td class="py-2 px-4">{{ $item->status }}</td>
+                        <td class="py-2 px-4">{{ $item->status_pernikahan }}</td>
                         <td class="py-2 px-4">{{ $item->shdk }}</td>
                         <td class="py-2 px-4">{{ $item->alamat }}</td>
                         <td class="py-2 px-4">{{ $item->rt }} / {{ $item->rw }}</td>

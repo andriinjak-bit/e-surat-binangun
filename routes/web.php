@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\SuratCommentController; // <-- ADD THIS LINE
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 // ==========================================
 // PUBLIC ROUTES
@@ -24,7 +25,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::get('/register', function () {
-    return view('auth.register');
+    return Inertia::render('Auth/Register');
 })->name('register');
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
