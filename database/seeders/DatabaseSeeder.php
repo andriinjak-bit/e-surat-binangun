@@ -12,21 +12,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate(
-            ['nik' => '1234567890123456'],
+
+        User::create([
+            'nik' => '1234567890123456',
+            'password' => bcrypt('password'), // password default
+            'is_admin' => true,
+        ]);
+        User::Create(
             [
-                'password' => bcrypt('password'), // password default
-                'is_admin' => true,
-            ]
-        );
-        User::updateOrCreate(
-            ['nik' => '1234567890123453'],
-            [
+                'nik' => '1234567890123453',
                 'password' => bcrypt('password'), // password default
                 'is_admin' => false,
             ]
         );
-
         $this->call([
             PendudukSeeder::class,
             SuratTemplateSeeder::class,
