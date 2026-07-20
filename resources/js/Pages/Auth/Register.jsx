@@ -41,11 +41,11 @@ export default function Register() {
             {/* Left Panel - Olive Green */}
             <div className="w-full md:w-5/12 bg-[#314a38] p-8 md:p-12 flex flex-col relative overflow-hidden text-white">
                 {/* Content Card */}
+                <div className="mb-6 flex justify-start">
+                    <Logo />
+                </div>
                 <div className="bg-[#fcf8f0] rounded-2xl p-8 lg:p-10 shadow-lg relative z-10 text-gray-800 flex-1 flex flex-col justify-between">
                     <div>
-                        <div className="mb-6 flex justify-start">
-                            <Logo />
-                        </div>
                         <h1 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">
                             Kenapa Perlu Daftar<br />Akun?
                         </h1>
@@ -153,7 +153,7 @@ export default function Register() {
                                 />
                                 {errors.nik && <div className="text-red-500 text-xs mt-1">{errors.nik}</div>}
                             </div>
-                            
+
                             {/* Jenis Kelamin */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Jenis Kelamin</label>
