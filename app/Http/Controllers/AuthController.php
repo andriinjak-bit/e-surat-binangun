@@ -24,12 +24,13 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
             \App\Models\ActivityLog::record('Login', 'Pengguna melakukan login');
             $user = Auth::user();
             if ($user->is_admin) {
-                return redirect()->intended('/');
+                return redirect()->intended('/admin/dashboard');
             }
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         }
 
         return back()->withErrors([
@@ -123,10 +124,12 @@ class AuthController extends Controller
         return redirect('/dashboard');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         \App\Models\ActivityLog::record('Logout', 'Pengguna melakukan logout');
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/');
     }
 }
