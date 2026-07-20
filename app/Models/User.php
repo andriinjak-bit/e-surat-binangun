@@ -21,6 +21,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $with = ['penduduk'];
+
     protected function casts(): array
     {
         return [
