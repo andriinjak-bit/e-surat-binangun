@@ -27,9 +27,9 @@ class AuthController extends Controller
             \App\Models\ActivityLog::record('Login', 'Pengguna melakukan login');
             $user = Auth::user();
             if ($user->is_admin) {
-                return redirect()->intended('/admin/dashboard');
+                return redirect()->intended('/');
             }
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
