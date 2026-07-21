@@ -1,155 +1,78 @@
 import React, { useState } from 'react';
 import Logo from "./Logo";
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { LogOut, User, Menu, X } from 'lucide-react';
 
-export default function Navbar({ variant = "civil" }) {
-    const { auth } = usePage().props;
-    const user = auth?.user;
-    const [isOpen, setIsOpen] = useState(false);
+export default function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <nav className={`${variant === "admin" ? "bg-[#2b3a20] text-white" : "bg-[#fcf8f0] text-gray-700"} px-4 md:px-8 lg:px-20 py-4 flex items-center justify-between border-b border-gray-200 shadow-sm sticky top-0 z-50 w-full`}>
-            {/* Left Side - Logos */}
-            <div className="flex items-center gap-4 w-auto justify-start">
+        <nav className="bg-[#2b3a20] text-white px-4 md:px-8 py-4 relative shadow-md">
+            <div className="flex flex-wrap items-center justify-between">
                 <div className="flex items-center gap-4">
-                    {/* Logo Web (Only Image for Admin/Mobile fallback) */}
-                    <img src="/logo.webp" alt="Logo Desa" className="h-10 md:hidden" />
+                    <img src="/logo.webp" alt="Logo Desa" className="h-8 md:h-10" />
+                    <span className="bg-[#d2dcbc] text-[#2b3a20] text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap hidden md:inline-block">ADMIN PORTAL</span>
+                </div>
 
-                    {/* Logo Full for Desktop */}
-                    <div className="hidden md:flex origin-left">
-                        <Logo />
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="md:hidden flex items-center justify-center p-2 text-gray-300 hover:text-white transition"
+                >
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center gap-8 text-sm text-gray-300">
+                    <Link href="/admin/dashboard" className="hover:text-white transition">Dashboard</Link>
+                    <Link href="/admin/template" className="hover:text-white transition">Template Surat</Link>
+                    <Link href="/admin/layanan" className="hover:text-white transition">Layanan Surat</Link>
+                    <Link href="/admin/penduduk" className="hover:text-white transition">Data Sipil</Link>
+                    <Link href="/admin/log-activity" className="hover:text-white transition">Log Activity</Link>
+                </div>
+
+                {/* Desktop User Actions */}
+                <div className="hidden md:flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm">Admin Desa</span>
+                        <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                            <User size={18} />
+                        </div>
                     </div>
-                    {variant === "admin" && (
-                        <span className="bg-[#d2dcbc] text-[#2b3a20] text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap hidden md:inline-block">
-                            ADMIN PORTAL
-                        </span>
-                    )}
+                    <button className="flex items-center gap-2 border border-gray-400 hover:border-white px-4 py-1.5 rounded-full text-sm transition">
+                        <LogOut size={16} />
+                        <span>Keluar</span>
+                    </button>
                 </div>
             </div>
 
-            {/* Desktop Center Links */}
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-                {variant === "civil" ? (
-                    <>
-                        <Link href="#hero" className="text-[#4a6b52] border-b-2 border-[#4a6b52] pb-1">Beranda</Link>
-                        <Link href="#layanan" className="hover:text-[#4a6b52] transition">Layanan</Link>
-                        {
-                            user && <Link href="#" className="hover:text-[#4a6b52] transition">Cek Status</Link>
-                        }
-                        <Link href="#contact" className="hover:text-[#4a6b52] transition">Kontak</Link>
-                    </>
-                ) : (
-                    <>
-                        <Link href="/admin/dashboard" className="hover:text-white transition">Dashboard</Link>
-                        <Link href="/admin/template" className="hover:text-white transition">Template Surat</Link>
-                        <Link href="/admin/layanan" className="hover:text-white transition">Layanan Surat</Link>
-                        <Link href="/admin/penduduk" className="hover:text-white transition">Data Sipil</Link>
-                        <Link href="/admin/log-activity" className="hover:text-white transition">Log Activity</Link>
-                    </>
-                )}
-            </div>
+            {/* Mobile Navigation Dropdown */}
+            {
+                isMobileMenuOpen && (
+                    <div className="md:hidden absolute top-full left-0 right-0 bg-[#2b3a20] border-t border-[#3f5231] shadow-lg z-50 flex flex-col py-2">
+                        <Link href="/admin/dashboard" className="px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#3f5231] transition">Dashboard</Link>
+                        <Link href="/admin/template" className="px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#3f5231] transition">Template Surat</Link>
+                        <Link href="/admin/layanan" className="px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#3f5231] transition">Layanan Surat</Link>
+                        <Link href="/admin/penduduk" className="px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#3f5231] transition">Data Sipil</Link>
+                        <Link href="/admin/log-activity" className="px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#3f5231] transition">Log Activity</Link>
 
-            {/* Desktop Right Controls */}
-            <div className="hidden md:flex items-center gap-4">
-                {user ? (
-                    <>
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm">
-                                {variant === "civil" ? (user.penduduk?.nama || "User") : "Admin Desa"}
-                            </span>
-                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
-                                <User size={18} />
-                            </div>
-                        </div>
-                        <Link
-                            href="/logout"
-                            method="post"
-                            as="button"
-                            className="flex items-center gap-2 border border-gray-400 hover:border-gray-600 px-4 py-1.5 rounded-full text-sm transition"
-                        >
-                            <LogOut size={16} />
-                            <span>Keluar</span>
-                        </Link>
-                    </>
-                ) : (
-                    <>
-                        <Link href="/login" className="text-sm font-medium hover:text-[#b3692e] transition">Masuk</Link>
-                        <Link href="/register" className="text-sm font-bold bg-[#b3692e] text-white px-5 py-2 rounded-full hover:bg-[#995927] transition">
-                            Daftar
-                        </Link>
-                    </>
-                )}
-            </div>
+                        <div className="border-t border-[#3f5231] my-2"></div>
 
-            {/* Mobile Hamburger Toggle */}
-            <button
-                className="md:hidden flex items-center p-2 rounded-lg hover:bg-gray-200/50 transition focus:outline-none"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-
-            {/* Mobile Menu Dropdown */}
-            {isOpen && (
-                <div className={`absolute top-full left-0 w-full ${variant === "admin" ? "bg-[#2b3a20] text-white" : "bg-[#fcf8f0] text-gray-700"} shadow-lg border-t border-gray-200/20 md:hidden flex flex-col`}>
-                    <div className="flex flex-col p-4 gap-4">
-                        {/* Mobile Links */}
-                        <div className="flex flex-col gap-4 border-b border-gray-300/30 pb-4">
-                            {variant === "civil" ? (
-                                <>
-                                    <Link href="#hero" className="font-medium text-[#4a6b52]">Beranda</Link>
-                                    <Link href="#layanan" className="font-medium hover:text-[#4a6b52] transition">Layanan</Link>
-                                    {
-                                        user && <Link href="#" className="font-medium hover:text-[#4a6b52] transition">Cek Status</Link>
-                                    }
-                                    <Link href="#contact" className="font-medium hover:text-[#4a6b52] transition">Kontak</Link>
-                                </>
-                            ) : (
-                                <>
-                                    <Link href="/admin/dashboard" className="font-medium hover:opacity-80 transition">Dashboard</Link>
-                                    <Link href="/admin/template" className="font-medium hover:opacity-80 transition">Template Surat</Link>
-                                    <Link href="/admin/layanan" className="font-medium hover:opacity-80 transition">Layanan Surat</Link>
-                                    <Link href="/admin/penduduk" className="font-medium hover:opacity-80 transition">Data Sipil</Link>
-                                    <Link href="/admin/log-activity" className="font-medium hover:opacity-80 transition">Log Activity</Link>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Mobile Controls */}
-                        <div className="flex flex-col gap-4">
-                            {user ? (
-                                <>
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
-                                            <User size={18} />
-                                        </div>
-                                        <span className="font-semibold">
-                                            {variant === "civil" ? (user.penduduk?.nama || "User") : "Admin Desa"}
-                                        </span>
-                                    </div>
-                                    <Link
-                                        href="/logout"
-                                        method="post"
-                                        as="button"
-                                        className="flex items-center justify-center gap-2 border border-gray-400 hover:bg-gray-200/20 px-4 py-2 rounded-lg text-sm transition"
-                                    >
-                                        <LogOut size={16} />
-                                        <span>Keluar</span>
-                                    </Link>
-                                </>
-                            ) : (
-                                <div className="flex flex-col gap-3">
-                                    <Link href="/login" className="text-center font-medium hover:text-[#b3692e] transition py-2">Masuk</Link>
-                                    <Link href="/register" className="text-center font-bold bg-[#b3692e] text-white px-5 py-2.5 rounded-lg hover:bg-[#995927] transition">
-                                        Daftar
-                                    </Link>
+                        <div className="px-4 py-3 flex items-center justify-between">
+                            <div className="flex items-center gap-2 text-gray-300">
+                                <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                    <User size={18} />
                                 </div>
-                            )}
+                                <span className="text-sm">Admin Desa</span>
+                            </div>
+                            <button className="flex items-center gap-2 border border-gray-400 hover:border-white text-gray-300 hover:text-white px-3 py-1.5 rounded-full text-sm transition">
+                                <LogOut size={16} />
+                                <span>Keluar</span>
+                            </button>
                         </div>
                     </div>
-                </div>
-            )}
-        </nav>
+                )
+            }
+        </nav >
     );
 }
