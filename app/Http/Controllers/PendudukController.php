@@ -25,7 +25,7 @@ class PendudukController extends Controller
 
         $penduduks = $query->paginate(15)->withQueryString();
 
-        return view('admin.penduduk.index', [
+        return \Inertia\Inertia::render('Admin/AdminPenduduk', [
             'penduduks' => $penduduks,
             'filters' => $request->only(['rt', 'rw', 'search']),
         ]);
@@ -33,7 +33,7 @@ class PendudukController extends Controller
 
     public function create()
     {
-        return view('admin.penduduk.create');
+        return \Inertia\Inertia::render('Admin/AdminPendudukAdd');
     }
 
     public function store(Request $request)

@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import Logo from "./Logo";
 import { Link, usePage } from '@inertiajs/react';
 import { LogOut, User, Menu, X } from 'lucide-react';
-import { useState } from 'react';
 
 export default function Navbar({ variant = "civil" }) {
     const { auth } = usePage().props;
@@ -41,9 +41,11 @@ export default function Navbar({ variant = "civil" }) {
                     </>
                 ) : (
                     <>
-                        <Link href="#" className="hover:font-semibold transition">Template Surat</Link>
-                        <Link href="#" className="hover:font-semibold transition">Data Sipil</Link>
-                        <Link href="#" className="hover:font-semibold transition">Layanan Surat</Link>
+                        <Link href="/admin/dashboard" className="hover:text-white transition">Dashboard</Link>
+                        <Link href="/admin/template" className="hover:text-white transition">Template Surat</Link>
+                        <Link href="/admin/layanan" className="hover:text-white transition">Layanan Surat</Link>
+                        <Link href="/admin/penduduk" className="hover:text-white transition">Data Sipil</Link>
+                        <Link href="/admin/log-activity" className="hover:text-white transition">Log Activity</Link>
                     </>
                 )}
             </div>
@@ -105,9 +107,11 @@ export default function Navbar({ variant = "civil" }) {
                                 </>
                             ) : (
                                 <>
-                                    <Link href="#" className="font-medium hover:opacity-80 transition">Template Surat</Link>
-                                    <Link href="#" className="font-medium hover:opacity-80 transition">Data Sipil</Link>
-                                    <Link href="#" className="font-medium hover:opacity-80 transition">Layanan Surat</Link>
+                                    <Link href="/admin/dashboard" className="font-medium hover:opacity-80 transition">Dashboard</Link>
+                                    <Link href="/admin/template" className="font-medium hover:opacity-80 transition">Template Surat</Link>
+                                    <Link href="/admin/layanan" className="font-medium hover:opacity-80 transition">Layanan Surat</Link>
+                                    <Link href="/admin/penduduk" className="font-medium hover:opacity-80 transition">Data Sipil</Link>
+                                    <Link href="/admin/log-activity" className="font-medium hover:opacity-80 transition">Log Activity</Link>
                                 </>
                             )}
                         </div>

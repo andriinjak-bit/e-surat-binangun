@@ -65,15 +65,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/surat/{surat}/comment', [SuratCommentController::class, 'store'])->name('surat.comment.store');
     Route::delete('/comment/{comment}', [SuratCommentController::class, 'destroy'])->name('comment.destroy');
     Route::post('/comment/{comment}/read', [SuratCommentController::class, 'markAsRead'])->name('comment.mark-read');
-    
+
     // PROFILE
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    
+
     // USER DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
     // ==========================================
     // USER SURAT ROUTES
     // ==========================================
@@ -95,9 +95,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/admin/users/{user}/toggle-admin', [AdminDashboardController::class, 'toggleAdmin'])->name('admin.users.toggle-admin');
         Route::post('/admin/users/{user}/toggle-active', [AdminDashboardController::class, 'toggleActive'])->name('admin.users.toggle-active');
         Route::delete('/admin/users/{user}', [AdminDashboardController::class, 'deleteUser'])->name('admin.users.delete');
-        
+
         // Activity Logs
-        Route::get('/admin/logs', [\App\Http\Controllers\ActivityLogController::class, 'index'])->name('admin.logs');
+        Route::get('/admin/log-activity', [\App\Http\Controllers\ActivityLogController::class, 'index'])->name('admin.logs');
 
 
         // Admin Notifications
@@ -109,14 +109,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/notifications/clear-all', [NotificationController::class, 'clearAll'])->name('notifications.clear-all');
 
         // Admin Surat Management
-        // Dihapus sesuai permintaan user
-        
+        Route::get('/admin/layanan', [\App\Http\Controllers\Admin\AdminLayananController::class, 'index'])->name('admin.layanan');
+        Route::get('/admin/layanan/detail', [\App\Http\Controllers\Admin\AdminLayananController::class, 'detail'])->name('admin.layanan.detail');
+        Route::get('/admin/layanan/approval', [\App\Http\Controllers\Admin\AdminLayananController::class, 'approval'])->name('admin.layanan.approval');
+
         // Admin Tiptap Surat Template Routes
-        Route::resource('template', \App\Http\Controllers\Admin\SuratTemplateController::class)->names('admin.template');
+        Route::resource('admin/template', \App\Http\Controllers\Admin\SuratTemplateController::class)->names('admin.template');
 
         // DATA SIPIL (PENDUDUK) ROUTES
         Route::get('/admin/penduduk', [PendudukController::class, 'index'])->name('admin.penduduk.index');
-        Route::get('/admin/penduduk/create', [PendudukController::class, 'create'])->name('admin.penduduk.create');
+        Route::get('/admin/penduduk/add', [PendudukController::class, 'create'])->name('admin.penduduk.create');
         Route::post('/admin/penduduk', [PendudukController::class, 'store'])->name('admin.penduduk.store');
         Route::get('/admin/penduduk/{penduduk}/edit', [PendudukController::class, 'edit'])->name('admin.penduduk.edit');
         Route::put('/admin/penduduk/{penduduk}', [PendudukController::class, 'update'])->name('admin.penduduk.update');

@@ -6,7 +6,7 @@ import Footer from '@/Components/Footer';
 
 export default function DashboardAdmin() {
     return (
-        <div className="min-h-screen bg-[#f3f4ea] font-sans text-gray-800">
+        <div className="min-h-screen font-sans text-gray-800">
             <Head title="Admin Dashboard" />
 
             {/* Navbar */}
@@ -15,24 +15,24 @@ export default function DashboardAdmin() {
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 md:px-8 py-10 mt-8 md:mt-0">
                 <div className="mb-8">
-                    <h1 className="text-4xl font-bold bg-white inline-block px-4 py-2 mb-2 shadow-sm">Admin Dashboard</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-[#2b3a20] mb-2">Admin Dashboard</h1>
                     <p className="text-gray-600 text-lg">Kelola informasi sipil dan layanan surat warga Desa Binangun.</p>
                 </div>
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
                     {/* Card 1 */}
-                    <div className="bg-white rounded-xl p-6 shadow-sm relative overflow-hidden group">
-                        <div className="bg-gray-100 w-max p-2 rounded-lg mb-4 text-gray-600">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 relative">
+                        <div className="w-max bg-blue-50 p-2 rounded-lg mb-4 text-gray-600">
                             <Users size={20} />
                         </div>
                         <div className="text-xs font-bold text-gray-400 mb-1 tracking-wider">TOTAL PENDUDUK</div>
-                        <div className="text-4xl font-bold text-[#2b3a20]">4.281</div>
-                        <div className="absolute bottom-0 left-0 w-2 h-12 bg-[#f3f4ea] rounded-tr-lg"></div>
+                        <div className="text-4xl font-bold text-blue-800">4.281</div>
+                        <div className="mt-2 bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded w-max">Penduduk</div>
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-white rounded-xl p-6 shadow-sm relative overflow-hidden">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 relative">
                         <div className="bg-yellow-50 w-max p-2 rounded-lg mb-4 text-yellow-600">
                             <ClipboardList size={20} />
                         </div>
@@ -42,17 +42,17 @@ export default function DashboardAdmin() {
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-white rounded-xl p-6 shadow-sm relative overflow-hidden">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 relative">
                         <div className="bg-green-50 w-max p-2 rounded-lg mb-4 text-green-600">
                             <CheckCircle size={20} />
                         </div>
                         <div className="text-xs font-bold text-gray-400 mb-1 tracking-wider">SURAT DISETUJUI</div>
-                        <div className="text-4xl font-bold text-[#2b3a20]">1.104</div>
+                        <div className="text-4xl font-bold text-green-700">1.104</div>
                         <div className="mt-2 bg-green-50 text-green-700 text-xs font-bold px-2 py-0.5 rounded w-max">Total tervalidasi</div>
                     </div>
 
                     {/* Card 4 */}
-                    <div className="bg-white rounded-xl p-6 shadow-sm relative overflow-hidden">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 relative">
                         <div className="bg-red-50 w-max p-2 rounded-lg mb-4 text-red-500">
                             <XCircle size={20} />
                         </div>
@@ -69,10 +69,7 @@ export default function DashboardAdmin() {
                             <h2 className="text-xl font-bold text-[#2b3a20]">Aktivitas Terkini</h2>
                             <p className="text-sm text-gray-500">Data pengajuan surat dan administrasi terbaru.</p>
                         </div>
-                        <div className="flex items-center gap-3 text-gray-500">
-                            <button className="hover:bg-gray-50 p-2 rounded"><Filter size={18} /></button>
-                            <button className="hover:bg-gray-50 p-2 rounded"><Download size={18} /></button>
-                        </div>
+
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-sm whitespace-nowrap">
