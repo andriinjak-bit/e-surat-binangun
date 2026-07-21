@@ -11,12 +11,12 @@ class SuratTemplateController extends Controller
     public function index()
     {
         $templates = SuratTemplate::latest()->get();
-        return view('admin.template.index', compact('templates'));
+        return \Inertia\Inertia::render('Admin/AdminTemplateSurat', compact('templates'));
     }
 
     public function create()
     {
-        return view('admin.template.create');
+        return \Inertia\Inertia::render('Admin/AdminTemplateSuratCreate');
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class SuratTemplateController extends Controller
 
     public function edit(SuratTemplate $template)
     {
-        return view('admin.template.edit', compact('template'));
+        return \Inertia\Inertia::render('Admin/AdminTemplateSuratEdit', compact('template'));
     }
 
     public function update(Request $request, SuratTemplate $template)

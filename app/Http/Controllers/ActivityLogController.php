@@ -28,6 +28,10 @@ class ActivityLogController extends Controller
         
         $actions = \App\Models\ActivityLog::select('action')->distinct()->pluck('action');
 
-        return view('admin.logs.index', compact('logs', 'actions'));
+        return \Inertia\Inertia::render('Admin/AdminLogActivity', [
+            'logs' => $logs,
+            'actions' => $actions,
+            'filters' => $request->only(['date', 'action', 'username']),
+        ]);
     }
 }
