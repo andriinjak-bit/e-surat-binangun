@@ -16,7 +16,7 @@ export default function Footer() {
                     <h4 className="text-xl font-bold text-white mb-6">Kontak & Lokasi</h4>
                     <div className="flex items-start gap-4 mb-4">
                         <MapPin className="text-[#aabf82] mt-1 shrink-0" size={20} />
-                        <p>Jl. Supriyadi No. 15, Kec. Binangun, Kab. Blitar,<br />Jawa Timur</p>
+                        <p>Jalan Raya Binangun, Kec. Binangun, Kabupaten Blitar, <br />Jawa Timur 66193</p>
                     </div>
                     <div className="flex items-center gap-4">
                         <Mail className="text-[#aabf82] shrink-0" size={20} />

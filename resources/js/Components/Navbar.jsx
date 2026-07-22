@@ -29,27 +29,28 @@ export default function Navbar({ variant = "civil" }) {
             </div>
 
             {/* Desktop Center Links */}
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-                {variant === "civil" ? (
-                    <>
-                        <Link href="#hero" className="text-[#4a6b52] border-b-2 border-[#4a6b52] pb-1">Beranda</Link>
-                        <Link href="#layanan" className="hover:text-[#4a6b52] transition">Layanan</Link>
-                        {
-                            user && <Link href="#" className="hover:text-[#4a6b52] transition">Cek Status</Link>
-                        }
-                        <Link href="#contact" className="hover:text-[#4a6b52] transition">Kontak</Link>
-                    </>
-                ) : (
-                    <>
-                        <Link href="#" className="hover:font-semibold transition">Template Surat</Link>
-                        <Link href="#" className="hover:font-semibold transition">Data Sipil</Link>
-                        <Link href="#" className="hover:font-semibold transition">Layanan Surat</Link>
-                    </>
-                )}
-            </div>
+            {user && (
+                <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+                    {variant === "civil" ? (
+                        <>
+                            <Link href="" className="text-[#4a6b52] border-b-2 border-[#4a6b52] pb-1">Beranda</Link>
+                            <Link href="" className="hover:text-[#4a6b52] transition">Layanan</Link>
+                            {
+                                user && <Link href="" className="hover:text-[#4a6b52] transition">Cek Status</Link>
+                            }
+                        </>
+                    ) : (
+                        <>
+                            <Link href="" className="hover:font-semibold transition">Template Surat</Link>
+                            <Link href="" className="hover:font-semibold transition">Data Sipil</Link>
+                            <Link href="" className="hover:font-semibold transition">Layanan Surat</Link>
+                        </>
+                    )}
+                </div>
+            )}
 
             {/* Desktop Right Controls */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="items-center gap-4 hidden md:flex">
                 {user ? (
                     <>
                         <div className="flex items-center gap-2">
@@ -101,7 +102,6 @@ export default function Navbar({ variant = "civil" }) {
                                     {
                                         user && <Link href="#" className="font-medium hover:text-[#4a6b52] transition">Cek Status</Link>
                                     }
-                                    <Link href="#contact" className="font-medium hover:text-[#4a6b52] transition">Kontak</Link>
                                 </>
                             ) : (
                                 <>

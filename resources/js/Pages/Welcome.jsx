@@ -1,29 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
-import Logo from '@/Components/Logo';
 import Footer from '@/Components/Footer';
-import { FileText, MapPin, Search } from 'lucide-react'; // Some placeholder icons for services
+import { FileText } from 'lucide-react'; // Some placeholder icons for services
 import Navbar from '@/Components/Navbar';
-
-// function PublicNavbar() {
-//     return (
-//         <nav className="w-full bg-[#fcf8f0] px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-200">
-//             <div className="flex items-center">
-//                 <Logo />
-//             </div>
-
-//             <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
-//                 <Link href="/" className="text-[#b3692e] border-b-2 border-[#b3692e] pb-1">Beranda</Link>
-//                 <Link href="#" className="hover:text-[#b3692e] transition">Layanan</Link>
-//                 <Link href="#" className="hover:text-[#b3692e] transition">Cek Status</Link>
-//             </div>
-
-//             <div className="flex items-center gap-4">
-//                 <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-[#b3692e] transition">Masuk</Link>
-//                 <Link href="/register" className="text-sm font-bold bg-[#b3692e] text-white px-5 py-2 rounded-full hover:bg-[#995927] transition">Daftar</Link>
-//             </div>
-//         </nav>
-//     );
-// }
 
 export default function Welcome() {
     return (
