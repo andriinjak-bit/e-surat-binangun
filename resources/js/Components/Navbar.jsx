@@ -14,6 +14,40 @@ export default function Navbar() {
                     <span className="bg-[#d2dcbc] text-[#2b3a20] text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap hidden md:inline-block">ADMIN PORTAL</span>
                 </div>
 
+
+            {/* Desktop Center Links */}
+            {user && (
+                <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+                    {variant === "civil" ? (
+                        <>
+                            <Link href="" className="text-[#4a6b52] border-b-2 border-[#4a6b52] pb-1">Beranda</Link>
+                            <Link href="" className="hover:text-[#4a6b52] transition">Layanan</Link>
+                            {
+                                user && <Link href="" className="hover:text-[#4a6b52] transition">Cek Status</Link>
+                            }
+                        </>
+                    ) : (
+                        <>
+                            <Link href="" className="hover:font-semibold transition">Template Surat</Link>
+                            <Link href="" className="hover:font-semibold transition">Data Sipil</Link>
+                            <Link href="" className="hover:font-semibold transition">Layanan Surat</Link>
+                        </>
+                    )}
+                </div>
+            )}
+
+            {/* Desktop Right Controls */}
+            <div className="items-center gap-4 hidden md:flex">
+                {user ? (
+                    <>
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm">
+                                {variant === "civil" ? (user.penduduk?.nama || "User") : "Admin Desa"}
+                            </span>
+                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                <User size={18} />
+                            </div>
+
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -56,7 +90,31 @@ export default function Navbar() {
                         <Link href="/admin/penduduk" className="px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#3f5231] transition">Data Sipil</Link>
                         <Link href="/admin/log-activity" className="px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-[#3f5231] transition">Log Activity</Link>
 
+            {/* Mobile Menu Dropdown */}
+            {isOpen && (
+                <div className={`absolute top-full left-0 w-full ${variant === "admin" ? "bg-[#2b3a20] text-white" : "bg-[#fcf8f0] text-gray-700"} shadow-lg border-t border-gray-200/20 md:hidden flex flex-col`}>
+                    <div className="flex flex-col p-4 gap-4">
+                        {/* Mobile Links */}
+                        <div className="flex flex-col gap-4 border-b border-gray-300/30 pb-4">
+                            {variant === "civil" ? (
+                                <>
+                                    <Link href="#hero" className="font-medium text-[#4a6b52]">Beranda</Link>
+                                    <Link href="#layanan" className="font-medium hover:text-[#4a6b52] transition">Layanan</Link>
+                                    {
+                                        user && <Link href="#" className="font-medium hover:text-[#4a6b52] transition">Cek Status</Link>
+                                    }
+                                </>
+                            ) : (
+                                <>
+                                    <Link href="#" className="font-medium hover:opacity-80 transition">Template Surat</Link>
+                                    <Link href="#" className="font-medium hover:opacity-80 transition">Data Sipil</Link>
+                                    <Link href="#" className="font-medium hover:opacity-80 transition">Layanan Surat</Link>
+                                </>
+                            )}
+                        </div>
+                        
                         <div className="border-t border-[#3f5231] my-2"></div>
+
 
                         <div className="px-4 py-3 flex items-center justify-between">
                             <div className="flex items-center gap-2 text-gray-300">

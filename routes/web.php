@@ -119,7 +119,7 @@ Route::get('/beranda', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
     }
-    return view('welcome');
+    return Inertia::render('Welcome');
 })->name('beranda');
 
 // ==========================================

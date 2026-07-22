@@ -10,6 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // dd(Auth::check(), Auth::id(), session()->getId());
         $user = Auth::user();
         
         // ==========================================
@@ -31,6 +32,8 @@ class DashboardController extends Controller
             $surats = collect([]); // Empty collection
         }
         
-        return view('dashboard', compact('user', 'surats'));
+        return \Inertia\Inertia::render('Dashboard', [
+            'surats' => $surats
+        ]);
     }
 }
