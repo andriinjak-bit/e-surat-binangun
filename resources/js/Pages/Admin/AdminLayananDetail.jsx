@@ -94,7 +94,7 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
         <div className="min-h-screen bg-[#f8f9f2] font-sans text-gray-800 flex flex-col relative">
             <Head title="Validasi Surat" />
 
-            <Navbar />
+            <Navbar variant='admin' />
 
             <main className="max-w-[1400px] mx-auto px-4 md:px-8 py-8 w-full flex-grow flex flex-col h-full">
                 {/* Header */}
@@ -145,8 +145,8 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                                     <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2">DOKUMEN PENDUKUNG</p>
                                     <div className="flex gap-2">
                                         {suratRequest.user?.penduduk?.ktp_path ? (
-                                            <a 
-                                                href={`/file/preview?path=${suratRequest.user.penduduk.ktp_path}`} 
+                                            <a
+                                                href={`/file/preview?path=${suratRequest.user.penduduk.ktp_path}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold transition"
@@ -162,8 +162,8 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                                         )}
 
                                         {suratRequest.user?.penduduk?.kk_path ? (
-                                            <a 
-                                                href={`/file/preview?path=${suratRequest.user.penduduk.kk_path}`} 
+                                            <a
+                                                href={`/file/preview?path=${suratRequest.user.penduduk.kk_path}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-bold transition"
@@ -207,7 +207,7 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                                             <h4 className="font-bold text-green-800 text-sm mb-1">Surat Selesai</h4>
                                             <p className="text-green-700 text-sm">Dokumen balasan final telah diunggah.</p>
                                         </div>
-                                        <a 
+                                        <a
                                             href={`/file/preview?path=${suratRequest.form_data._file_balasan}`}
                                             target="_blank"
                                             className="bg-white text-green-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm border border-green-200 hover:bg-green-100 transition"
@@ -230,7 +230,7 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                                             <div className={`max-w-[85%] ${comment.user_id === 1 || comment.is_admin ? 'items-end' : 'items-start'} flex flex-col`}>
                                                 <div className="flex items-baseline gap-2 mb-1 px-1">
                                                     <span className="text-[11px] font-bold text-gray-700">{comment.user_name}</span>
-                                                    <span className="text-[10px] text-gray-400">{new Date(comment.created_at).toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'})}</span>
+                                                    <span className="text-[10px] text-gray-400">{new Date(comment.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
                                                 </div>
                                                 <div className={`p-3 rounded-2xl text-sm ${comment.user_id === 1 || comment.is_admin ? 'bg-[#4a5f36] text-white rounded-tr-none' : 'bg-white border border-gray-200 text-gray-700 rounded-tl-none shadow-sm'}`}>
                                                     <p className="leading-relaxed">{comment.message}</p>

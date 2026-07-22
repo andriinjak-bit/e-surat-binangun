@@ -36,7 +36,7 @@ export default function AdminLayanan({ suratRequests, filters, stats }) {
         <div className="min-h-screen bg-[#f8f9f2] font-sans text-gray-800 flex flex-col relative">
             <Head title="Kelola Layanan Surat" />
 
-            <Navbar />
+            <Navbar variant='admin' />
 
             <main className="max-w-7xl mx-auto px-4 md:px-8 py-10 flex-grow w-full">
                 {/* Header Section */}
