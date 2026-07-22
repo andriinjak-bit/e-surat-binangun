@@ -35,64 +35,64 @@ export default function AdminTemplateSuratCreate() {
         <div className="min-h-screen bg-[#f8f9f2] font-sans text-gray-800 flex flex-col relative">
             <Head title="Tambah Template Baru" />
 
-            <Navbar />
+            <Navbar variant='admin' />
 
             <main className="max-w-5xl mx-auto px-4 md:px-8 py-10 flex-grow w-full">
                 <form onSubmit={handleSubmit}>
-                {/* Header Section */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
-                    <div>
-                        <h1 className="text-3xl font-bold text-[#2b3a20] mb-2">Tambah Template Baru</h1>
-                        <p className="text-gray-500 text-sm">
-                            Buat standardisasi format surat desa untuk mempercepat pelayanan publik.
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-3 w-full md:w-auto">
-                        <Link
-                            href="/admin/template"
-                            className="flex-1 md:flex-none text-center px-6 py-2.5 rounded-full border border-gray-400 text-gray-700 text-sm font-medium hover:bg-gray-50 transition"
-                        >
-                            Batal
-                        </Link>
-                        <button type="button" onClick={() => setPreviewModalOpen(true)} className="flex-1 md:flex-none px-6 py-2.5 rounded-full border border-gray-400 text-gray-700 text-sm font-medium hover:bg-gray-50 transition flex items-center gap-2 justify-center">
-                            <Eye size={16} /> Preview
-                        </button>
-                        <button type="submit" disabled={processing} className="flex-1 md:flex-none px-8 py-2.5 rounded-full bg-[#2b3a20] text-white text-sm font-medium hover:bg-[#1f2917] transition shadow-sm">
-                            Simpan
-                        </button>
-                    </div>
-                </div>
-
-                {/* Form Section 1: Basic Info */}
-                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    {/* Header Section */}
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
                         <div>
-                            <label className="block text-xs font-bold text-gray-700 mb-2">Nama Template</label>
-                            <input
-                                type="text"
-                                value={data.judul}
-                                onChange={e => setData('judul', e.target.value)}
-                                placeholder="Contoh: Surat Keterangan Usaha"
-                                className="w-full bg-[#f4f5f0] border-0 rounded-xl p-3.5 text-sm text-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-[#2b3a20]"
-                            />
-                            {errors.judul && <div className="text-red-500 text-xs mt-1">{errors.judul}</div>}
+                            <h1 className="text-3xl font-bold text-[#2b3a20] mb-2">Tambah Template Baru</h1>
+                            <p className="text-gray-500 text-sm">
+                                Buat standardisasi format surat desa untuk mempercepat pelayanan publik.
+                            </p>
+                        </div>
+                        <div className="flex items-center gap-3 w-full md:w-auto">
+                            <Link
+                                href="/admin/template"
+                                className="flex-1 md:flex-none text-center px-6 py-2.5 rounded-full border border-gray-400 text-gray-700 text-sm font-medium hover:bg-gray-50 transition"
+                            >
+                                Batal
+                            </Link>
+                            <button type="button" onClick={() => setPreviewModalOpen(true)} className="flex-1 md:flex-none px-6 py-2.5 rounded-full border border-gray-400 text-gray-700 text-sm font-medium hover:bg-gray-50 transition flex items-center gap-2 justify-center">
+                                <Eye size={16} /> Preview
+                            </button>
+                            <button type="submit" disabled={processing} className="flex-1 md:flex-none px-8 py-2.5 rounded-full bg-[#2b3a20] text-white text-sm font-medium hover:bg-[#1f2917] transition shadow-sm">
+                                Simpan
+                            </button>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-                        <label className="block text-sm font-bold text-gray-800">Isi Template</label>
-                        <div className="flex items-center gap-2 text-xs text-gray-500 font-medium">
-                            <Info size={14} />
-                            <span>Tips: Gunakan [placeholder] untuk data dinamis</span>
+                    {/* Form Section 1: Basic Info */}
+                    <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 mb-2">Nama Template</label>
+                                <input
+                                    type="text"
+                                    value={data.judul}
+                                    onChange={e => setData('judul', e.target.value)}
+                                    placeholder="Contoh: Surat Keterangan Usaha"
+                                    className="w-full bg-[#f4f5f0] border-0 rounded-xl p-3.5 text-sm text-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-[#2b3a20]"
+                                />
+                                {errors.judul && <div className="text-red-500 text-xs mt-1">{errors.judul}</div>}
+                            </div>
                         </div>
-                    </div>
+
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                            <label className="block text-sm font-bold text-gray-800">Isi Template</label>
+                            <div className="flex items-center gap-2 text-xs text-gray-500 font-medium">
+                                <Info size={14} />
+                                <span>Tips: Gunakan [placeholder] untuk data dinamis</span>
+                            </div>
+                        </div>
 
                         <TiptapEditor
                             value={data.body}
                             onChange={(content) => setData('body', content)}
                         />
-                    {errors.body && <div className="text-red-500 text-xs mt-1 -mt-4 mb-6">{errors.body}</div>}
-                </div>
+                        {errors.body && <div className="text-red-500 text-xs mt-1 -mt-4 mb-6">{errors.body}</div>}
+                    </div>
                 </form>
             </main>
 
@@ -108,7 +108,7 @@ export default function AdminTemplateSuratCreate() {
                         </div>
                         <div className="p-8 overflow-y-auto bg-gray-100 flex justify-center">
                             <div className="bg-white p-10 shadow-sm w-full max-w-[21cm] min-h-[29.7cm] prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none text-gray-800 border border-gray-200"
-                                 dangerouslySetInnerHTML={{ __html: kopSurat + data.body }}
+                                dangerouslySetInnerHTML={{ __html: kopSurat + data.body }}
                             />
                         </div>
                         <div className="p-4 border-t border-gray-100 bg-white flex justify-end">

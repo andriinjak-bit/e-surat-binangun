@@ -79,7 +79,7 @@ export default function AdminPenduduk({ penduduks, filters, total_pria, total_wa
             <Head title="Data Penduduk" />
 
             {/* Navbar */}
-            <Navbar />
+            <Navbar variant='admin' />
 
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 md:px-8 py-10 mt-8 md:mt-0 flex-grow w-full">

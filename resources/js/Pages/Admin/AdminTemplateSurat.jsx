@@ -80,7 +80,7 @@ export default function AdminTemplateSurat({ templates, filters }) {
         <div className="min-h-screen font-sans text-gray-800 flex flex-col bg-[#f8f9f2]">
             <Head title="Manajemen Template Surat" />
 
-            <Navbar />
+            <Navbar variant='admin' />
 
             <main className="max-w-7xl mx-auto px-4 md:px-8 py-10 mt-8 md:mt-0 flex-grow w-full">
                 {/* Header */}

@@ -9,7 +9,7 @@ export default function AdminLogActivity() {
         <div className="min-h-screen bg-[#f8f9f2] font-sans text-gray-800 flex flex-col">
             <Head title="Log Aktivitas" />
 
-            <Navbar />
+            <Navbar variant='admin' />
 
             <main className="max-w-7xl mx-auto px-4 md:px-8 py-10 mt-8 md:mt-0 flex-grow w-full">
                 {/* Header */}
