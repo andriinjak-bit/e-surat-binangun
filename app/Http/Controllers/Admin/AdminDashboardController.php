@@ -26,7 +26,9 @@ class AdminDashboardController extends Controller
         $pendingSurat = SuratRequest::where('status', 'pending')->count();
         $diprosesSurat = SuratRequest::where('status', 'diproses')->count();
         $selesaiSurat = SuratRequest::where('status', 'selesai')->count();
+        $ditolakSurat = SuratRequest::where('status', 'ditolak')->count();
         $totalUsers = User::count();
+        $totalPenduduk = \App\Models\Penduduk::count();
 
         // Get recent surat
         $recentSurat = SuratRequest::with(['user', 'template'])
@@ -40,7 +42,9 @@ class AdminDashboardController extends Controller
             'pendingSurat' => $pendingSurat,
             'diprosesSurat' => $diprosesSurat,
             'selesaiSurat' => $selesaiSurat,
+            'ditolakSurat' => $ditolakSurat,
             'totalUsers' => $totalUsers,
+            'totalPenduduk' => $totalPenduduk,
             'recentSurat' => $recentSurat
         ]);
     }

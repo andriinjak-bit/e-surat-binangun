@@ -26,4 +26,9 @@ class SuratRequest extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(SuratComment::class, 'surat_id');
+    }
 }

@@ -8,15 +8,25 @@ use App\Models\SuratTemplate;
 
 class SuratTemplateController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $templates = SuratTemplate::latest()->get();
-        return view('admin.template.index', compact('templates'));
+        $query = SuratTemplate::query();
+
+        if ($request->filled('search')) {
+            $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        $templates = $query->latest()->paginate(10)->withQueryString();
+        
+        return \Inertia\Inertia::render('Admin/AdminTemplateSurat', [
+            'templates' => $templates,
+            'filters' => $request->only(['search'])
+        ]);
     }
 
     public function create()
     {
-        return view('admin.template.create');
+        return \Inertia\Inertia::render('Admin/AdminTemplateSuratCreate');
     }
 
     public function store(Request $request)
@@ -38,7 +48,7 @@ class SuratTemplateController extends Controller
 
     public function edit(SuratTemplate $template)
     {
-        return view('admin.template.edit', compact('template'));
+        return \Inertia\Inertia::render('Admin/AdminTemplateSuratEdit', compact('template'));
     }
 
     public function update(Request $request, SuratTemplate $template)
@@ -55,12 +65,12 @@ class SuratTemplateController extends Controller
             'variables' => $request->variables ?? $template->variables,
         ]);
 
-        return redirect()->route('admin.template.index')->with('success', 'Template berhasil diperbarui.');
+        return redirect()->route('admin.template.index', [], 303)->with('success', 'Template berhasil diperbarui.');
     }
 
     public function destroy(SuratTemplate $template)
     {
         $template->delete();
-        return redirect()->route('admin.template.index')->with('success', 'Template berhasil dihapus.');
+        return redirect()->route('admin.template.index', [], 303)->with('success', 'Template berhasil dihapus.');
     }
 }
