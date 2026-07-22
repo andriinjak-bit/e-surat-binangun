@@ -1,10 +1,37 @@
-import React from 'react';
-import { Head, Link } from '@inertiajs/react';
-import { FileUp, Send, User, ShieldCheck } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
+import { FileUp, Send, User, ShieldCheck, X } from 'lucide-react';
 import Navbar from '@/Components/Navbar';
 import Footer from '@/Components/Footer';
 
-export default function AdminLayananApproval() {
+export default function AdminLayananApproval({ suratRequest }) {
+    const { data, setData, post, processing, errors } = useForm({
+        file_balasan: null,
+    });
+    
+    const fileInputRef = useRef(null);
+
+    const handleFileChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setData('file_balasan', e.target.files[0]);
+        }
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            setData('file_balasan', e.dataTransfer.files[0]);
+        }
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(`/admin/layanan/upload/${suratRequest.id}`);
+    };
     return (
         <div className="min-h-screen bg-[#f8f9f2] font-sans text-gray-800 flex flex-col relative">
             <Head title="Upload Surat Balasan" />
@@ -33,39 +60,76 @@ export default function AdminLayananApproval() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">PEMOHON</p>
-                                    <p className="font-bold text-gray-800 text-lg">Andry Ilmy Sukma</p>
+                                    <p className="font-bold text-gray-800 text-lg">{suratRequest.user?.name}</p>
                                 </div>
                             </div>
                             <div className="sm:text-right">
                                 <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">NOMOR REGISTRASI</p>
-                                <p className="font-bold text-gray-800">REG/2024/09/0142</p>
+                                <p className="font-bold text-gray-800">REG-{suratRequest.id.toString().padStart(4, '0')}</p>
                             </div>
                         </div>
 
+                        <form onSubmit={handleSubmit}>
                         {/* Upload Area */}
                         <div className="p-6 md:p-8">
-                            <div className="border-2 border-dashed border-gray-300 bg-[#fbfcf9] rounded-xl p-10 flex flex-col items-center justify-center text-center hover:bg-[#f4f5f0] transition cursor-pointer group">
-                                <div className="w-14 h-14 bg-[#e9ebe0] rounded-full flex items-center justify-center text-[#556934] mb-4 group-hover:scale-110 transition-transform">
-                                    <FileUp size={24} />
-                                </div>
-                                <h3 className="text-sm font-bold text-gray-800 mb-1">Klik untuk unggah atau seret file ke sini</h3>
-                                <p className="text-xs text-gray-500">Hanya file .PDF yang didukung (Maksimal 5MB)</p>
+                            <div 
+                                onClick={() => fileInputRef.current?.click()}
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                                className={`border-2 border-dashed rounded-xl p-10 flex flex-col items-center justify-center text-center transition cursor-pointer group ${data.file_balasan ? 'border-[#4a5f36] bg-[#f6f7f2]' : 'border-gray-300 bg-[#fbfcf9] hover:bg-[#f4f5f0]'}`}
+                            >
+                                <input 
+                                    type="file" 
+                                    className="hidden" 
+                                    ref={fileInputRef} 
+                                    accept=".pdf" 
+                                    onChange={handleFileChange}
+                                />
+                                {data.file_balasan ? (
+                                    <>
+                                        <div className="w-14 h-14 bg-[#dcf4c6] rounded-full flex items-center justify-center text-[#467b28] mb-4">
+                                            <FileUp size={24} />
+                                        </div>
+                                        <h3 className="text-sm font-bold text-gray-800 mb-1">{data.file_balasan.name}</h3>
+                                        <button 
+                                            type="button"
+                                            onClick={(e) => { e.stopPropagation(); setData('file_balasan', null); }}
+                                            className="text-xs text-red-500 mt-2 flex items-center gap-1 hover:underline"
+                                        >
+                                            <X size={12}/> Hapus file
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="w-14 h-14 bg-[#e9ebe0] rounded-full flex items-center justify-center text-[#556934] mb-4 group-hover:scale-110 transition-transform">
+                                            <FileUp size={24} />
+                                        </div>
+                                        <h3 className="text-sm font-bold text-gray-800 mb-1">Klik untuk unggah atau seret file ke sini</h3>
+                                        <p className="text-xs text-gray-500">Hanya file .PDF yang didukung (Maksimal 5MB)</p>
+                                    </>
+                                )}
+                                {errors.file_balasan && <p className="text-xs text-red-500 mt-3">{errors.file_balasan}</p>}
                             </div>
                         </div>
 
                         {/* Actions */}
                         <div className="p-6 border-t border-gray-100 bg-[#fbfcf9] flex flex-col sm:flex-row items-center justify-end gap-4">
                             <Link 
-                                href="/admin/layanan/detail" 
+                                href={`/admin/layanan/detail?id=${suratRequest.id}`} 
                                 className="w-full sm:w-auto px-8 py-3 rounded-xl border border-gray-300 bg-white text-gray-700 text-sm font-bold hover:bg-gray-50 transition text-center shadow-sm"
                             >
                                 Batal
                             </Link>
-                            <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#2b3a20] hover:bg-[#1f2917] text-white px-8 py-3 rounded-xl text-sm font-bold transition shadow-sm">
+                            <button 
+                                type="submit" 
+                                disabled={processing || !data.file_balasan}
+                                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#2b3a20] hover:bg-[#1f2917] text-white px-8 py-3 rounded-xl text-sm font-bold transition shadow-sm disabled:opacity-50"
+                            >
                                 <Send size={16} />
                                 Selesaikan & Kirim
                             </button>
                         </div>
+                        </form>
                     </div>
 
                     {/* Info Card Sidebar */}

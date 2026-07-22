@@ -15,6 +15,73 @@ use Inertia\Inertia;
 // PUBLIC ROUTES
 // ==========================================
 
+use Illuminate\Support\Facades\Storage;
+
+Route::get('/file/preview', function (Illuminate\Http\Request $request) {
+    $path = $request->query('path');
+    
+    if (!$path) {
+        abort(404, 'Path is required');
+    }
+
+    // 1. Check standard public disk (storage/app/public)
+    if (Storage::disk('public')->exists($path)) {
+        return response()->file(Storage::disk('public')->path($path));
+    }
+
+    // 2. Check local disk with 'public/ktp' or 'public/kk' prefixes 
+    // (Laravel 11 default local disk is storage/app/private)
+    if (Storage::disk('local')->exists('public/ktp/' . basename($path))) {
+        return response()->file(Storage::disk('local')->path('public/ktp/' . basename($path)));
+    }
+    if (Storage::disk('local')->exists('public/kk/' . basename($path))) {
+        return response()->file(Storage::disk('local')->path('public/kk/' . basename($path)));
+    }
+
+    // 3. Check if path starts with 'public/' and try stripping it
+    $cleanPath = ltrim($path, '/');
+    if (str_starts_with($cleanPath, 'public/')) {
+        $cleanPath = substr($cleanPath, 7);
+        if (Storage::disk('public')->exists($cleanPath)) {
+            return response()->file(Storage::disk('public')->path($cleanPath));
+        }
+    }
+    
+    // 4. Try raw path on local disk
+    if (Storage::disk('local')->exists($path)) {
+        return response()->file(Storage::disk('local')->path($path));
+    }
+    
+    // 5. PHP decodes '+' in URL query strings to spaces. 
+    // If the file actually has a '+' in its name, it won't be found.
+    // Let's try replacing spaces with '+' as a fallback.
+    if (str_contains($path, ' ')) {
+        $pathWithPlus = str_replace(' ', '+', $path);
+        
+        if (Storage::disk('public')->exists($pathWithPlus)) {
+            return response()->file(Storage::disk('public')->path($pathWithPlus));
+        }
+        if (Storage::disk('local')->exists('public/ktp/' . basename($pathWithPlus))) {
+            return response()->file(Storage::disk('local')->path('public/ktp/' . basename($pathWithPlus)));
+        }
+        if (Storage::disk('local')->exists('public/kk/' . basename($pathWithPlus))) {
+            return response()->file(Storage::disk('local')->path('public/kk/' . basename($pathWithPlus)));
+        }
+        $cleanPathPlus = ltrim($pathWithPlus, '/');
+        if (str_starts_with($cleanPathPlus, 'public/')) {
+            $cleanPathPlus = substr($cleanPathPlus, 7);
+            if (Storage::disk('public')->exists($cleanPathPlus)) {
+                return response()->file(Storage::disk('public')->path($cleanPathPlus));
+            }
+        }
+        if (Storage::disk('local')->exists($pathWithPlus)) {
+            return response()->file(Storage::disk('local')->path($pathWithPlus));
+        }
+    }
+    
+    abort(404, 'File not found at path: ' . $path . ' (Full path: ' . Storage::disk('public')->path($path) . ')');
+})->name('file.preview');
+
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
@@ -112,6 +179,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/layanan', [\App\Http\Controllers\Admin\AdminLayananController::class, 'index'])->name('admin.layanan');
         Route::get('/admin/layanan/detail', [\App\Http\Controllers\Admin\AdminLayananController::class, 'detail'])->name('admin.layanan.detail');
         Route::get('/admin/layanan/approval', [\App\Http\Controllers\Admin\AdminLayananController::class, 'approval'])->name('admin.layanan.approval');
+        Route::post('/admin/layanan/status/{id}', [\App\Http\Controllers\Admin\AdminLayananController::class, 'updateStatus'])->name('admin.layanan.status');
+        Route::post('/admin/layanan/upload/{id}', [\App\Http\Controllers\Admin\AdminLayananController::class, 'uploadFinal'])->name('admin.layanan.upload');
+        Route::post('/admin/layanan/comment/{id}', [\App\Http\Controllers\Admin\AdminLayananController::class, 'addComment'])->name('admin.layanan.comment');
 
         // Admin Tiptap Surat Template Routes
         Route::resource('admin/template', \App\Http\Controllers\Admin\SuratTemplateController::class)->names('admin.template');
@@ -124,5 +194,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/admin/penduduk/{penduduk}', [PendudukController::class, 'update'])->name('admin.penduduk.update');
         Route::delete('/admin/penduduk/{penduduk}', [PendudukController::class, 'destroy'])->name('admin.penduduk.destroy');
         Route::post('/admin/penduduk/import', [PendudukController::class, 'import'])->name('admin.penduduk.import');
+        Route::get('/admin/penduduk/check-import', [PendudukController::class, 'checkImport'])->name('admin.penduduk.check-import');
+        Route::get('/admin/penduduk/export', [PendudukController::class, 'export'])->name('admin.penduduk.export');
     });
 });

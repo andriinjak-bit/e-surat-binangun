@@ -106,17 +106,18 @@ class AuthController extends Controller
         );
 
         // Create notification for all admins about new user registration
-        $admins = User::where('is_admin', true)->get();
-        foreach ($admins as $admin) {
-            AdminNotification::create([
-                'user_id' => $admin->id,
-                'type' => 'user_registered',
-                'title' => 'Pengguna Baru Terdaftar',
-                'message' => $request->name . ' telah mendaftar sebagai pengguna baru.',
-                'related_model' => 'User',
-                'related_id' => $user->id,
-            ]);
-        }
+        // (Disabled because admin_notifications table does not exist and user rejected migrations)
+        // $admins = User::where('is_admin', true)->get();
+        // foreach ($admins as $admin) {
+        //     AdminNotification::create([
+        //         'user_id' => $admin->id,
+        //         'type' => 'user_registered',
+        //         'title' => 'Pengguna Baru Terdaftar',
+        //         'message' => $request->name . ' telah mendaftar sebagai pengguna baru.',
+        //         'related_model' => 'User',
+        //         'related_id' => $user->id,
+        //     ]);
+        // }
 
         Auth::login($user);
         \App\Models\ActivityLog::record('Register', 'Pengguna mendaftarkan akun baru');

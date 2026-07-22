@@ -330,7 +330,7 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
         <tr>
             <td style="padding: 4px 0;">Umur</td>
             <td>:</td>
-            <td><strong>{{umur}}</strong></td>
+            <td>{{umur}}</td>
         </tr>
         <tr>
             <td style="padding: 4px 0;">Jenis Kelamin</td>

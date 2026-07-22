@@ -39,10 +39,10 @@ export default function Navbar() {
                             <User size={18} />
                         </div>
                     </div>
-                    <button className="flex items-center gap-2 border border-gray-400 hover:border-white px-4 py-1.5 rounded-full text-sm transition">
+                    <Link href="/logout" method="post" as="button" className="flex items-center gap-2 border border-gray-400 hover:border-white px-4 py-1.5 rounded-full text-sm transition">
                         <LogOut size={16} />
                         <span>Keluar</span>
-                    </button>
+                    </Link>
                 </div>
             </div>
 
@@ -65,10 +65,10 @@ export default function Navbar() {
                                 </div>
                                 <span className="text-sm">Admin Desa</span>
                             </div>
-                            <button className="flex items-center gap-2 border border-gray-400 hover:border-white text-gray-300 hover:text-white px-3 py-1.5 rounded-full text-sm transition">
+                            <Link href="/logout" method="post" as="button" className="flex items-center gap-2 border border-gray-400 hover:border-white text-gray-300 hover:text-white px-3 py-1.5 rounded-full text-sm transition">
                                 <LogOut size={16} />
                                 <span>Keluar</span>
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 )

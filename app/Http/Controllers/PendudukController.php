@@ -13,21 +13,29 @@ class PendudukController extends Controller
         if ($request->filled('rt')) {
             $query->where('rt', $request->rt);
         }
-        
+
         if ($request->filled('rw')) {
             $query->where('rw', $request->rw);
+        }
+        if ($request->filled('dusun')) {
+            $query->where('dusun', $request->dusun);
         }
 
         if ($request->filled('search')) {
             $query->where('nama', 'like', '%' . $request->search . '%')
-                  ->orWhere('nik', 'like', '%' . $request->search . '%');
+                ->orWhere('nik', 'like', '%' . $request->search . '%');
         }
+        $totalPria = (clone $query)->where('jenis_kelamin', '1')->count();
+        $total_wanita = (clone $query)->where('jenis_kelamin', '2')->count();
+
 
         $penduduks = $query->paginate(15)->withQueryString();
 
         return \Inertia\Inertia::render('Admin/AdminPenduduk', [
             'penduduks' => $penduduks,
-            'filters' => $request->only(['rt', 'rw', 'search']),
+            'filters' => $request->only(['dusun', 'rt', 'rw', 'search']),
+            'total_pria' => $totalPria,
+            'total_wanita' => $total_wanita,
         ]);
     }
 
@@ -64,7 +72,7 @@ class PendudukController extends Controller
 
     public function edit(\App\Models\Penduduk $penduduk)
     {
-        return view('admin.penduduk.edit', [
+        return \Inertia\Inertia::render('Admin/AdminPendudukAdd', [
             'penduduk' => $penduduk
         ]);
     }
@@ -92,7 +100,7 @@ class PendudukController extends Controller
         $penduduk->update($validated);
         \App\Models\ActivityLog::record('Update Penduduk', 'Mengubah data penduduk: ' . $penduduk->nama);
 
-        return redirect()->route('admin.penduduk.index')->with('success', 'Data penduduk berhasil diperbarui.');
+        return redirect()->route('admin.penduduk.index', [], 303)->with('success', 'Data penduduk berhasil diperbarui.');
     }
 
     public function destroy(\App\Models\Penduduk $penduduk)
@@ -100,7 +108,7 @@ class PendudukController extends Controller
         $nama = $penduduk->nama;
         $penduduk->delete();
         \App\Models\ActivityLog::record('Delete Penduduk', 'Menghapus data penduduk: ' . $nama);
-        return redirect()->route('admin.penduduk.index')->with('success', 'Data penduduk berhasil dihapus.');
+        return redirect()->route('admin.penduduk.index', [], 303)->with('success', 'Data penduduk berhasil dihapus.');
     }
 
     public function import(Request $request)
@@ -113,5 +121,22 @@ class PendudukController extends Controller
         \App\Models\ActivityLog::record('Import Penduduk', 'Mulai memproses import CSV penduduk di background.');
 
         return redirect()->back()->with('success', 'Data penduduk sedang di-import di background.');
+    }
+    public function checkImport()
+    {
+        try {
+            $isImporting = \Illuminate\Support\Facades\DB::table('jobs')
+                ->where('payload', 'like', '%PendudukImport%')
+                ->count() > 0;
+            return response()->json(['is_importing' => $isImporting]);
+        } catch (\Exception $e) {
+            return response()->json(['is_importing' => false]);
+        }
+    }
+
+    public function export(Request $request)
+    {
+        \App\Models\ActivityLog::record('Export Penduduk', 'Mengekspor data penduduk ke format CSV.');
+        return (new \App\Exports\PendudukExport($request->all()))->download('data_penduduk.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 }

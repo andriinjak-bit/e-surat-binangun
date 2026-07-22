@@ -21,7 +21,7 @@ export default function AdminLogActivity() {
                 </div>
 
                 {/* Filters Area */}
-                <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-100 mb-6 flex flex-col md:flex-row items-end gap-4">
+                <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-300 mb-6 flex flex-col md:flex-row items-end gap-4">
                     <div className="w-full md:w-auto">
                         <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2">TANGGAL</label>
                         <input
@@ -65,10 +65,10 @@ export default function AdminLogActivity() {
                 </div>
 
                 {/* Table Section */}
-                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-300 shadow-sm">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-sm whitespace-nowrap">
-                            <thead className="bg-[#eef0e5] text-gray-600 text-[11px] font-bold tracking-wider border-b border-gray-200 uppercase">
+                        <table className="w-full text-left text-sm whitespace-nowrap ">
+                            <thead className="bg-[#f6f7f2] text-gray-600 text-[11px] font-bold tracking-wider border-b border-gray-300 uppercase">
                                 <tr>
                                     <th className="px-6 py-4">WAKTU</th>
                                     <th className="px-6 py-4">PENGGUNA</th>
