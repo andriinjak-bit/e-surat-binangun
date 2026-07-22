@@ -10,25 +10,16 @@ export default function Navbar({ variant = "civil" }) {
 
     return (
         <nav className={`${variant === "admin" ? "bg-[#2b3a20] text-white" : "bg-[#fcf8f0] text-gray-700"} px-4 md:px-8 lg:px-20 py-4 flex items-center justify-between border-b border-gray-200 shadow-sm sticky top-0 z-50 w-full`}>
-            {/* Left Side - Logos */}
             <div className="flex items-center gap-4 w-auto justify-start">
                 <div className="flex items-center gap-4">
-                    {/* Logo Web (Only Image for Admin/Mobile fallback) */}
                     <img src="/logo.webp" alt="Logo Desa" className="h-10 md:hidden" />
 
-                    {/* Logo Full for Desktop */}
                     <div className="hidden md:flex origin-left">
                         <Logo />
                     </div>
-                    {/* {variant === "admin" && (
-                        <span className="bg-[#d2dcbc] text-[#2b3a20] text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap hidden md:inline-block">
-                            ADMIN PORTAL
-                        </span>
-                    )} */}
                 </div>
             </div>
 
-            {/* Desktop Center Links */}
             {user && (
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium">
                     {variant === "civil" ? (
@@ -49,7 +40,6 @@ export default function Navbar({ variant = "civil" }) {
                 </div>
             )}
 
-            {/* Desktop Right Controls */}
             <div className="items-center gap-4 hidden md:flex">
                 {user ? (
                     <>
@@ -94,23 +84,27 @@ export default function Navbar({ variant = "civil" }) {
                 <div className={`absolute top-full left-0 w-full ${variant === "admin" ? "bg-[#2b3a20] text-white" : "bg-[#fcf8f0] text-gray-700"} shadow-lg border-t border-gray-200/20 md:hidden flex flex-col`}>
                     <div className="flex flex-col p-4 gap-4">
                         {/* Mobile Links */}
-                        <div className="flex flex-col gap-4 border-b border-gray-300/30 pb-4">
-                            {variant === "civil" ? (
-                                <>
-                                    <Link href="#hero" className="font-medium text-[#4a6b52]">Beranda</Link>
-                                    <Link href="#layanan" className="font-medium hover:text-[#4a6b52] transition">Layanan</Link>
-                                    <Link href="#" className="font-medium hover:text-[#4a6b52] transition">Cek Status</Link>
-                                </>
-                            ) : (
-                                <>
-                                    <Link href="/admin/dashboard" className="hover:text-white transition">Dashboard</Link>
-                                    <Link href="/admin/template" className="hover:text-white transition">Template Surat</Link>
-                                    <Link href="/admin/layanan" className="hover:text-white transition">Layanan Surat</Link>
-                                    <Link href="/admin/penduduk" className="hover:text-white transition">Data Sipil</Link>
-                                    <Link href="/admin/log-activity" className="hover:text-white transition">Log Activity</Link>
-                                </>
-                            )}
-                        </div>
+                        {
+                            user && (
+                                <div className="flex flex-col gap-4 border-b border-gray-300/30 pb-4">
+                                    {variant === "civil" ? (
+                                        <>
+                                            <Link href="" className="font-medium text-[#4a6b52]">Beranda</Link>
+                                            <Link href="" className="font-medium hover:text-[#4a6b52] transition">Layanan</Link>
+                                            <Link href="" className="font-medium hover:text-[#4a6b52] transition">Cek Status</Link>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Link href="/admin/dashboard" className="hover:text-white transition">Dashboard</Link>
+                                            <Link href="/admin/template" className="hover:text-white transition">Template Surat</Link>
+                                            <Link href="/admin/layanan" className="hover:text-white transition">Layanan Surat</Link>
+                                            <Link href="/admin/penduduk" className="hover:text-white transition">Data Sipil</Link>
+                                            <Link href="/admin/log-activity" className="hover:text-white transition">Log Activity</Link>
+                                        </>
+                                    )}
+                                </div>
+                            )
+                        }
 
                         {/* Mobile Controls */}
                         <div className="flex flex-col gap-4">
