@@ -3,7 +3,9 @@ import Navbar from '@/Components/Navbar';
 import Footer from '@/Components/Footer';
 import { FileText, HandCoins, ShieldAlert, FileMinus, FileSignature, MoreHorizontal, Mail, MapPin } from 'lucide-react';
 
-export default function Dashboard({ surats }) {
+import SuratCard from '@/Components/SuratCard';
+
+export default function Dashboard({ surats, suratTemplates = [] }) {
     const { auth } = usePage().props;
 
     return (
@@ -51,105 +53,9 @@ export default function Dashboard({ surats }) {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {/* SKU */}
-                        <div className="bg-white rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                            <div>
-                                <div className="bg-[#e8efdd] w-10 h-10 rounded-lg flex items-center justify-center text-[#3f4e1f] mb-4">
-                                    <FileText size={20} />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Usaha (SKU)</h3>
-                                <p className="text-gray-600 text-xs mb-4 leading-relaxed line-clamp-3">
-                                    Bagi warga yang memiliki usaha dan membutuhkan surat pengantar ini sebagai syarat keperluan bank/izin usaha.
-                                </p>
-                                <ul className="text-xs text-gray-600 space-y-2 mb-6">
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KTP</li>
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KK</li>
-                                </ul>
-                            </div>
-                            <Link href="#" className="w-full block text-center bg-[#2b3a20] text-white font-semibold py-2.5 rounded-lg hover:bg-[#1a2413] transition text-sm">
-                                Ajukan Sekarang
-                            </Link>
-                        </div>
-
-                        {/* SKTM */}
-                        <div className="bg-white rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                            <div>
-                                <div className="bg-[#faeddc] w-10 h-10 rounded-lg flex items-center justify-center text-[#b3692e] mb-4">
-                                    <HandCoins size={20} />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Tidak Mampu (SKTM)</h3>
-                                <p className="text-gray-600 text-xs mb-4 leading-relaxed line-clamp-3">
-                                    Dokumen ini untuk permohonan keringanan biaya pendidikan, kesehatan dan akses bantuan sosial pemerintah.
-                                </p>
-                                <ul className="text-xs text-gray-600 space-y-2 mb-6">
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KTP</li>
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KK</li>
-                                </ul>
-                            </div>
-                            <Link href="#" className="w-full block text-center bg-[#2b3a20] text-white font-semibold py-2.5 rounded-lg hover:bg-[#1a2413] transition text-sm">
-                                Ajukan Sekarang
-                            </Link>
-                        </div>
-
-                        {/* SKCK */}
-                        <div className="bg-white rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                            <div>
-                                <div className="bg-gray-100 w-10 h-10 rounded-lg flex items-center justify-center text-gray-700 mb-4">
-                                    <ShieldAlert size={20} />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Catatan Kepolisian (SKCK)</h3>
-                                <p className="text-gray-600 text-xs mb-4 leading-relaxed line-clamp-3">
-                                    Pengantar untuk membuat surat SKCK di kepolisian untuk melamar kerja/melanjutkan pendidikan.
-                                </p>
-                                <ul className="text-xs text-gray-600 space-y-2 mb-6">
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KTP</li>
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KK</li>
-                                </ul>
-                            </div>
-                            <Link href="#" className="w-full block text-center bg-[#2b3a20] text-white font-semibold py-2.5 rounded-lg hover:bg-[#1a2413] transition text-sm">
-                                Ajukan Sekarang
-                            </Link>
-                        </div>
-
-                        {/* Kematian */}
-                        <div className="bg-white rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                            <div>
-                                <div className="bg-gray-100 w-10 h-10 rounded-lg flex items-center justify-center text-gray-700 mb-4">
-                                    <FileMinus size={20} />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Kematian (Catatan Sipil)</h3>
-                                <p className="text-gray-600 text-xs mb-4 leading-relaxed line-clamp-3">
-                                    Surat Pengantar yang dibutuhkan untuk mengurus administrasi kematian untuk diteruskan ke Disdukcapil.
-                                </p>
-                                <ul className="text-xs text-gray-600 space-y-2 mb-6">
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KTP</li>
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KK</li>
-                                </ul>
-                            </div>
-                            <Link href="#" className="w-full block text-center bg-[#2b3a20] text-white font-semibold py-2.5 rounded-lg hover:bg-[#1a2413] transition text-sm">
-                                Ajukan Sekarang
-                            </Link>
-                        </div>
-
-                        {/* Kehilangan */}
-                        <div className="bg-white rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                            <div>
-                                <div className="bg-gray-100 w-10 h-10 rounded-lg flex items-center justify-center text-gray-700 mb-4">
-                                    <FileSignature size={20} />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">Surat Pengantar Kehilangan</h3>
-                                <p className="text-gray-600 text-xs mb-4 leading-relaxed line-clamp-3">
-                                    Surat Pengantar dari desa yang dibutuhkan untuk pelaporan kehilangan barang berharga di kantor polisi.
-                                </p>
-                                <ul className="text-xs text-gray-600 space-y-2 mb-6">
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KTP</li>
-                                    <li className="flex items-center gap-2"><i className="fas fa-check-circle text-green-600"></i> Fotokopi KK</li>
-                                </ul>
-                            </div>
-                            <Link href="#" className="w-full block text-center bg-[#2b3a20] text-white font-semibold py-2.5 rounded-lg hover:bg-[#1a2413] transition text-sm">
-                                Ajukan Sekarang
-                            </Link>
-                        </div>
+                        {suratTemplates.map((template) => (
+                            <SuratCard key={template.id} template={template} />
+                        ))}
 
                         {/* Lainnya */}
                         <div className="bg-[#4a5a2a] rounded-2xl p-6 flex flex-col justify-between shadow-sm border border-[#5a6a3a] relative overflow-hidden">

@@ -112,7 +112,9 @@ Route::get('/kontak', function () {
 
 Route::get('/layanan', function () {
     $templates = \App\Models\SuratTemplate::all();
-    return view('layanan', compact('templates'));
+    return \Inertia\Inertia::render('Layanan', [
+        'suratTemplates' => $templates
+    ]);
 })->name('layanan');
 
 Route::get('/beranda', function () {
@@ -149,7 +151,6 @@ Route::middleware(['auth'])->group(function () {
     // User Surat Request Routes
     Route::get('/surat/request/template/{template}', [\App\Http\Controllers\SuratRequestController::class, 'create'])->name('surat.request.create');
     Route::post('/surat/request/template/{template}', [\App\Http\Controllers\SuratRequestController::class, 'store'])->name('surat.request.store');
-    Route::get('/surat/request/{suratRequest}', [\App\Http\Controllers\SuratRequestController::class, 'show'])->name('surat.request.show');
 
     // ==========================================
     // ADMIN ROUTES (Require Admin Role)

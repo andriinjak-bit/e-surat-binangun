@@ -1,94 +1,143 @@
 import React, { useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Placeholder from '@tiptap/extension-placeholder';
-import TextAlign from '@tiptap/extension-text-align';
+import { Paragraph } from '@tiptap/extension-paragraph';
+import { Placeholder } from '@tiptap/extension-placeholder';
+import { TextAlign } from '@tiptap/extension-text-align';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
 import { Bold, Italic, Strikethrough, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 
 const MenuBar = ({ editor }) => {
-    if (!editor) {
-        return null;
-    }
+    if (!editor) return null;
 
     return (
-        <div className="bg-[#eef0e5] px-4 py-2 flex items-center gap-4 border-b border-gray-200 overflow-x-auto">
-            <div className="flex items-center gap-1">
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleBold().run()}
-                    disabled={!editor.can().chain().focus().toggleBold().run()}
-                    className={`p-1.5 rounded transition ${editor.isActive('bold') ? 'bg-gray-300 text-gray-900' : 'text-gray-700 hover:bg-gray-200'}`}
-                >
-                    <Bold size={16} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleItalic().run()}
-                    disabled={!editor.can().chain().focus().toggleItalic().run()}
-                    className={`p-1.5 rounded transition ${editor.isActive('italic') ? 'bg-gray-300 text-gray-900' : 'text-gray-700 hover:bg-gray-200'}`}
-                >
-                    <Italic size={16} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleStrike().run()}
-                    disabled={!editor.can().chain().focus().toggleStrike().run()}
-                    className={`p-1.5 rounded transition ${editor.isActive('strike') ? 'bg-gray-300 text-gray-900' : 'text-gray-700 hover:bg-gray-200'}`}
-                >
-                    <Strikethrough size={16} />
-                </button>
-            </div>
-            <div className="w-px h-5 bg-gray-300"></div>
-            <div className="flex items-center gap-1">
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().setTextAlign('left').run()}
-                    className={`p-1.5 rounded transition ${editor.isActive({ textAlign: 'left' }) ? 'bg-gray-300 text-gray-900' : 'text-gray-700 hover:bg-gray-200'}`}
-                >
-                    <AlignLeft size={16} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().setTextAlign('center').run()}
-                    className={`p-1.5 rounded transition ${editor.isActive({ textAlign: 'center' }) ? 'bg-gray-300 text-gray-900' : 'text-gray-700 hover:bg-gray-200'}`}
-                >
-                    <AlignCenter size={16} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().setTextAlign('right').run()}
-                    className={`p-1.5 rounded transition ${editor.isActive({ textAlign: 'right' }) ? 'bg-gray-300 text-gray-900' : 'text-gray-700 hover:bg-gray-200'}`}
-                >
-                    <AlignRight size={16} />
-                </button>
-            </div>
+        <div className="flex flex-wrap items-center gap-1 border-b border-gray-200 bg-gray-50/80 p-2 md:px-4 rounded-t-xl sticky top-0 z-10">
+            <button
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleBold().run() }}
+                className={`p-2 rounded-lg transition-colors ${editor.isActive('bold') ? 'bg-[#e4ebd3] text-[#2b3a20]' : 'text-gray-600 hover:bg-gray-200'}`}
+                title="Bold"
+            >
+                <Bold size={16} />
+            </button>
+            <button
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleItalic().run() }}
+                className={`p-2 rounded-lg transition-colors ${editor.isActive('italic') ? 'bg-[#e4ebd3] text-[#2b3a20]' : 'text-gray-600 hover:bg-gray-200'}`}
+                title="Italic"
+            >
+                <Italic size={16} />
+            </button>
+            <button
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleStrike().run() }}
+                className={`p-2 rounded-lg transition-colors ${editor.isActive('strike') ? 'bg-[#e4ebd3] text-[#2b3a20]' : 'text-gray-600 hover:bg-gray-200'}`}
+                title="Strikethrough"
+            >
+                <Strikethrough size={16} />
+            </button>
+
+            <div className="w-px h-6 bg-gray-300 mx-1"></div>
+
+            <button
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().setTextAlign('left').run() }}
+                className={`p-2 rounded-lg transition-colors ${editor.isActive({ textAlign: 'left' }) ? 'bg-[#e4ebd3] text-[#2b3a20]' : 'text-gray-600 hover:bg-gray-200'}`}
+                title="Align Left"
+            >
+                <AlignLeft size={16} />
+            </button>
+            <button
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().setTextAlign('center').run() }}
+                className={`p-2 rounded-lg transition-colors ${editor.isActive({ textAlign: 'center' }) ? 'bg-[#e4ebd3] text-[#2b3a20]' : 'text-gray-600 hover:bg-gray-200'}`}
+                title="Align Center"
+            >
+                <AlignCenter size={16} />
+            </button>
+            <button
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().setTextAlign('right').run() }}
+                className={`p-2 rounded-lg transition-colors ${editor.isActive({ textAlign: 'right' }) ? 'bg-[#e4ebd3] text-[#2b3a20]' : 'text-gray-600 hover:bg-gray-200'}`}
+                title="Align Right"
+            >
+                <AlignRight size={16} />
+            </button>
         </div>
     );
 };
 
-export default function TiptapEditor({ value, onChange }) {
+export default function TiptapEditor({ value, onChange, readOnly = false, variant = 'default' }) {
     const editor = useEditor({
         extensions: [
-            StarterKit,
+            StarterKit.configure({
+                paragraph: false,
+            }),
+            Paragraph.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        style: {
+                            default: null,
+                            parseHTML: element => element.getAttribute('style'),
+                            renderHTML: attributes => {
+                                if (!attributes.style) return {}
+                                return { style: attributes.style }
+                            },
+                        },
+                    }
+                }
+            }),
             TextAlign.configure({
-                types: ['heading', 'paragraph'],
+                types: ['heading', 'paragraph', 'tableCell'],
             }),
             Placeholder.configure({
                 placeholder: 'Ketik isi surat di sini... Gunakan {{nama_variabel}} untuk form dinamis.',
             }),
+            Table.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        style: {
+                            default: null,
+                            parseHTML: element => element.getAttribute('style'),
+                            renderHTML: attributes => {
+                                if (!attributes.style) return {}
+                                return { style: attributes.style }
+                            },
+                        },
+                    }
+                }
+            }).configure({
+                resizable: true,
+            }),
+            TableRow,
+            TableHeader,
+            TableCell.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        style: {
+                            default: null,
+                            parseHTML: element => element.getAttribute('style'),
+                            renderHTML: attributes => {
+                                if (!attributes.style) return {}
+                                return { style: attributes.style }
+                            },
+                        },
+                    }
+                }
+            }),
         ],
+        editable: !readOnly,
         content: value,
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML());
         },
         editorProps: {
             attributes: {
-                class: 'prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none max-w-none focus:outline-none min-h-[300px] p-6 bg-white',
+                class: `prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none max-w-none focus:outline-none ${variant === 'document' ? 'p-0' : 'p-6 bg-white min-h-[300px]'}`,
             },
         },
     });
 
-    // Sync external value changes (like when loading initial data in Edit page)
     useEffect(() => {
         if (editor && value !== editor.getHTML()) {
             editor.commands.setContent(value, false);
@@ -96,8 +145,8 @@ export default function TiptapEditor({ value, onChange }) {
     }, [value, editor]);
 
     return (
-        <div className="border border-gray-200 rounded-xl overflow-hidden mb-6 flex flex-col">
-            <MenuBar editor={editor} />
+        <div className={`${variant === 'document' ? 'flex flex-col flex-grow' : 'border border-gray-200 rounded-xl overflow-hidden mb-6 flex flex-col'} ${readOnly ? 'bg-gray-50' : 'bg-white'}`}>
+            {!readOnly && <MenuBar editor={editor} />}
             <div className="flex-grow overflow-y-auto">
                 <EditorContent editor={editor} />
             </div>

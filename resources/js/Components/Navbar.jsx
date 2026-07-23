@@ -24,8 +24,8 @@ export default function Navbar({ variant = "civil" }) {
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium">
                     {variant === "civil" ? (
                         <>
-                            <Link href="" className="text-[#4a6b52] border-b-2 border-[#4a6b52] pb-1">Beranda</Link>
-                            <Link href="" className="hover:text-[#4a6b52] transition">Layanan</Link>
+                            <Link href="/dashboard" className="text-[#4a6b52] border-b-2 border-[#4a6b52] pb-1">Beranda</Link>
+                            <Link href="/layanan" className="hover:text-[#4a6b52] transition">Layanan</Link>
                             <Link href="" className="hover:text-[#4a6b52] transition">Cek Status</Link>
                         </>
                     ) : (
@@ -89,8 +89,8 @@ export default function Navbar({ variant = "civil" }) {
                                 <div className="flex flex-col gap-4 border-b border-gray-300/30 pb-4">
                                     {variant === "civil" ? (
                                         <>
-                                            <Link href="" className="font-medium text-[#4a6b52]">Beranda</Link>
-                                            <Link href="" className="font-medium hover:text-[#4a6b52] transition">Layanan</Link>
+                                            <Link href="/dashboard" className="font-medium text-[#4a6b52]">Beranda</Link>
+                                            <Link href="/layanan" className="font-medium hover:text-[#4a6b52] transition">Layanan</Link>
                                             <Link href="" className="font-medium hover:text-[#4a6b52] transition">Cek Status</Link>
                                         </>
                                     ) : (
