@@ -17,7 +17,7 @@ export default function AdminTemplateSurat({ templates, filters }) {
 
     const kopSurat = `<div style="border-bottom: 3px solid black; margin-bottom: 1px; padding-bottom: 10px;">
         <div style="border-bottom: 1px solid black; padding-bottom: 1px; display: flex; align-items: center;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Lambang_Kabupaten_Blitar.webp" style="width: 80px; height: auto; margin-right: 20px;" alt="Logo" />
+            <img src="/logo.webp" style="width: 80px; height: auto; margin-right: 20px;" alt="Logo" />
             <div style="text-align: center; flex: 1; padding-right: 80px;">
                 <h3 style="margin: 0; font-size: 14pt; font-weight: bold; text-transform: uppercase;">PEMERINTAH KABUPATEN BLITAR</h3>
                 <h3 style="margin: 0; font-size: 14pt; font-weight: bold; text-transform: uppercase;">KECAMATAN BINANGUN</h3>

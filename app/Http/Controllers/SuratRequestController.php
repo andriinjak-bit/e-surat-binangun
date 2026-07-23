@@ -31,6 +31,8 @@ class SuratRequestController extends Controller
             'form_data' => $request->form_data,
         ]);
 
+        \App\Models\ActivityLog::record('PENGAJUAN SURAT', 'Warga ' . auth()->user()->name . ' mengajukan surat: ' . $template->nama);
+
         return redirect()->route('surat.request.show', $suratRequest->id)
             ->with('success', 'Permintaan surat berhasil dikirim.');
     }

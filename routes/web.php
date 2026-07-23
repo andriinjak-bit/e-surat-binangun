@@ -86,13 +86,22 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('/login', function () {
-    return Inertia::render('Auth/Login');
-})->name('login');
+Route::middleware(['prevent-back-history'])->group(function () {
+    Route::get('/login', function () {
+        if (Auth::check()) {
+            return redirect(Auth::user()->is_admin ? '/admin/dashboard' : '/dashboard');
+        }
+        return Inertia::render('Auth/Login');
+    })->name('login');
 
-Route::get('/register', function () {
-    return Inertia::render('Auth/Register');
-})->name('register');
+    Route::get('/register', function () {
+        if (Auth::check()) {
+            return redirect(Auth::user()->is_admin ? '/admin/dashboard' : '/dashboard');
+        }
+        return Inertia::render('Auth/Register');
+    })->name('register');
+});
+
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
@@ -102,6 +111,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/register', [AuthController::class, 'showAdminRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'adminRegister']);
     Route::get('/login', function () {
+        if (Auth::check()) {
+            return redirect(Auth::user()->is_admin ? '/admin/dashboard' : '/dashboard');
+        }
         return view('admin.login');
     })->name('login');
 });
@@ -126,7 +138,7 @@ Route::get('/beranda', function () {
 // PROTECTED ROUTES (Require Login)
 // ==========================================
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'prevent-back-history'])->group(function () {
 
     // COMMENT ROUTES
     Route::post('/surat/{surat}/comment', [SuratCommentController::class, 'store'])->name('surat.comment.store');

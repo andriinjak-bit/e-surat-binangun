@@ -8,7 +8,9 @@ class ActivityLogController extends Controller
 {
     public function index(Request $request)
     {
-        $query = \App\Models\ActivityLog::with('user')->latest();
+        $query = \App\Models\ActivityLog::with('user')
+            ->whereIn('action', ['PENGAJUAN SURAT', 'PROSES SURAT', 'SELESAI SURAT', 'TOLAK SURAT'])
+            ->latest();
 
         if ($request->filled('date')) {
             $query->whereDate('created_at', $request->date);
@@ -26,7 +28,10 @@ class ActivityLogController extends Controller
 
         $logs = $query->paginate(20)->withQueryString();
         
-        $actions = \App\Models\ActivityLog::select('action')->distinct()->pluck('action');
+        $actions = \App\Models\ActivityLog::whereIn('action', ['PENGAJUAN SURAT', 'PROSES SURAT', 'SELESAI SURAT', 'TOLAK SURAT'])
+            ->select('action')
+            ->distinct()
+            ->pluck('action');
 
         return \Inertia\Inertia::render('Admin/AdminLogActivity', [
             'logs' => $logs,

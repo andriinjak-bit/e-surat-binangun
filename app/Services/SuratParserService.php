@@ -36,7 +36,7 @@ class SuratParserService
             // Check if value is a base64 image (signature)
             if (is_string($value) && strpos($value, 'data:image/') === 0) {
                 // Render as image tag for signatures
-                $replacement = '<img src="' . htmlspecialchars($value) . '" alt="Signature" style="max-height: 100px; display: block;">';
+                $replacement = '<img src="' . htmlspecialchars($value) . '" alt="Signature" style="max-height: 100px; display: inline-block; vertical-align: middle;">';
             } else {
                 // Regular string or array replacement
                 $replacement = is_array($value) ? json_encode($value) : htmlspecialchars((string) $value);

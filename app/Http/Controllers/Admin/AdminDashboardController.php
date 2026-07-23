@@ -32,6 +32,7 @@ class AdminDashboardController extends Controller
 
         // Get recent surat
         $recentSurat = SuratRequest::with(['user', 'template'])
+            ->whereIn('status', ['pending', 'diproses'])
             ->latest()
             ->take(10)
             ->get();

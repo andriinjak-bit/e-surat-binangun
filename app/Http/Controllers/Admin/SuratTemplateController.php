@@ -16,8 +16,8 @@ class SuratTemplateController extends Controller
             $query->where('judul', 'like', '%' . $request->search . '%');
         }
 
-        $templates = $query->latest()->paginate(10)->withQueryString();
-        
+        $templates = $query->latest()->paginate(5)->withQueryString();
+
         return \Inertia\Inertia::render('Admin/AdminTemplateSurat', [
             'templates' => $templates,
             'filters' => $request->only(['search'])

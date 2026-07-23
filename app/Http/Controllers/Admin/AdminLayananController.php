@@ -15,12 +15,12 @@ class AdminLayananController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($qBuilder) use ($search) {
+            $query->where(function ($qBuilder) use ($search) {
                 $qBuilder->whereHas('user', function ($q) use ($search) {
                     $q->where('nik', 'like', "%{$search}%")
-                      ->orWhereHas('penduduk', function ($q2) use ($search) {
-                          $q2->where('nama', 'like', "%{$search}%");
-                      });
+                        ->orWhereHas('penduduk', function ($q2) use ($search) {
+                            $q2->where('nama', 'like', "%{$search}%");
+                        });
                 })->orWhere('id', 'like', "%{$search}%");
             });
         }
@@ -52,7 +52,7 @@ class AdminLayananController extends Controller
     {
         $id = $request->id;
         $suratRequest = SuratRequest::with(['user', 'template', 'comments.user'])->findOrFail($id);
-        
+
         $parser = new \App\Services\SuratParserService();
         $htmlOutput = $parser->parseTemplate($suratRequest->id);
 
@@ -66,7 +66,7 @@ class AdminLayananController extends Controller
     {
         $id = $request->id;
         $suratRequest = SuratRequest::with(['user', 'template'])->findOrFail($id);
-        
+
         return Inertia::render('Admin/AdminLayananApproval', [
             'suratRequest' => $suratRequest
         ]);
@@ -75,7 +75,7 @@ class AdminLayananController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $suratRequest = SuratRequest::findOrFail($id);
-        
+
         $validated = $request->validate([
             'status' => 'required|in:diproses,ditolak',
             'alasan' => 'nullable|string'
@@ -91,26 +91,32 @@ class AdminLayananController extends Controller
 
         $suratRequest->save();
 
+        $actionName = $validated['status'] === 'diproses' ? 'PROSES SURAT' : 'TOLAK SURAT';
+        $desc = ($validated['status'] === 'diproses' ? 'Memproses pengajuan ' : 'Menolak pengajuan ') . $suratRequest->template->nama . ' milik warga ' . ($suratRequest->user->name ?? 'Anonim');
+        \App\Models\ActivityLog::record($actionName, $desc);
+
         return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
     }
 
     public function uploadFinal(Request $request, $id)
     {
         $suratRequest = SuratRequest::findOrFail($id);
-        
+
         $request->validate([
             'file_balasan' => 'required|mimes:pdf|max:5120',
         ]);
 
         if ($request->hasFile('file_balasan')) {
             $path = $request->file('file_balasan')->store('surat_balasan', 'public');
-            
+
             $formData = $suratRequest->form_data ?? [];
             $formData['_file_balasan'] = $path;
-            
+
             $suratRequest->form_data = $formData;
             $suratRequest->status = 'selesai';
             $suratRequest->save();
+
+            \App\Models\ActivityLog::record('SELESAI SURAT', 'Mengunggah balasan surat ' . $suratRequest->template->nama . ' milik warga ' . ($suratRequest->user->name ?? 'Anonim'));
         }
 
         return redirect()->route('admin.layanan')->with('success', 'Surat balasan berhasil diunggah.');
@@ -119,14 +125,14 @@ class AdminLayananController extends Controller
     public function addComment(Request $request, $id)
     {
         $suratRequest = SuratRequest::findOrFail($id);
-        
+
         $request->validate([
             'message' => 'required|string|max:1000',
         ]);
 
         $formData = $suratRequest->form_data ?? [];
         $comments = $formData['_comments'] ?? [];
-        
+
         $comments[] = [
             'user_id' => auth()->id(),
             'user_name' => auth()->user()->name,
@@ -135,7 +141,7 @@ class AdminLayananController extends Controller
             'message' => $request->message,
             'created_at' => now()->toISOString(),
         ];
-        
+
         $formData['_comments'] = $comments;
         $suratRequest->form_data = $formData;
         $suratRequest->save();
