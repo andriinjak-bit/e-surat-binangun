@@ -8,6 +8,7 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
+import Image from '@tiptap/extension-image';
 import { Bold, Italic, Strikethrough, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 
 const MenuBar = ({ editor }) => {
@@ -125,6 +126,21 @@ export default function TiptapEditor({ value, onChange, readOnly = false, varian
                     }
                 }
             }),
+            Image.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        style: {
+                            default: null,
+                            parseHTML: element => element.getAttribute('style'),
+                            renderHTML: attributes => {
+                                if (!attributes.style) return {}
+                                return { style: attributes.style }
+                            },
+                        },
+                    }
+                }
+            }),
         ],
         editable: !readOnly,
         content: value,
@@ -145,7 +161,7 @@ export default function TiptapEditor({ value, onChange, readOnly = false, varian
     }, [value, editor]);
 
     return (
-        <div className={`${variant === 'document' ? 'flex flex-col flex-grow' : 'border border-gray-200 rounded-xl overflow-hidden mb-6 flex flex-col'} ${readOnly ? 'bg-gray-50' : 'bg-white'}`}>
+        <div className={`${variant === 'document' ? 'flex flex-col flex-grow' : 'rounded-xl overflow-hidden mb-6 flex flex-col'} ${readOnly ? 'bg-gray-50' : 'bg-white'}`}>
             {!readOnly && <MenuBar editor={editor} />}
             <div className="flex-grow overflow-y-auto">
                 <EditorContent editor={editor} />

@@ -1,9 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Head, usePage, useForm, Link } from '@inertiajs/react';
 import Navbar from '@/Components/Navbar';
 import Footer from '@/Components/Footer';
 import TiptapEditor from '@/Components/TiptapEditor';
 import { CheckCircle2, FileText, ArrowLeft, ArrowRight, Send } from 'lucide-react';
+import SignatureCanvas from 'react-signature-canvas';
+
+const SignatureField = ({ label, value, onChange }) => {
+    const sigPad = useRef(null);
+    const [hasSignature, setHasSignature] = useState(!!value);
+    
+    React.useEffect(() => {
+        if (value && sigPad.current && sigPad.current.isEmpty()) {
+            sigPad.current.fromDataURL(value);
+        }
+    }, [value]);
+
+    return (
+        <div className="md:col-span-2">
+            <label className="block text-xs font-bold text-gray-700 mb-2">{label}</label>
+            <div className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+                <SignatureCanvas 
+                    ref={sigPad}
+                    penColor="black"
+                    canvasProps={{ className: "w-full h-40 bg-[#fbfcf9]" }}
+                    onEnd={() => {
+                        setHasSignature(true);
+                        onChange(sigPad.current.getCanvas().toDataURL('image/png'));
+                    }}
+                />
+                <div className="flex justify-between items-center p-2 bg-gray-50 border-t border-gray-200">
+                    <span className="text-xs text-gray-500">{hasSignature ? 'Tanda tangan tersimpan' : 'Silakan tanda tangan di atas'}</span>
+                    <button 
+                        type="button" 
+                        onClick={() => { sigPad.current.clear(); setHasSignature(false); onChange(''); }}
+                        className="text-xs text-red-500 hover:text-red-700 font-semibold"
+                    >
+                        Hapus Tanda Tangan
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default function Create({ template }) {
     const { auth } = usePage().props;
@@ -57,8 +96,15 @@ export default function Create({ template }) {
         if (template.variables) {
             template.variables.forEach(v => {
                 const val = data.form_data[v.name] || '';
-                const regex = new RegExp(`\\{\\{\\s*${v.name}\\s*\\}\\}`, 'gi');
-                html = html.replace(regex, val);
+                let replacedVal = val;
+                
+                if (v.type === 'signature' && val) {
+                    replacedVal = `<img src="${val}" style="max-height: 80px; width: auto;" alt="Signature" />`;
+                }
+                
+                // Allow spaces, HTML non-breaking spaces, or any HTML tags to exist between {{ and the variable name
+                const regex = new RegExp(`\\{\\{(?:\\s|&nbsp;|<[^>]+>)*${v.name}(?:\\s|&nbsp;|<[^>]+>)*\\}\\}`, 'gi');
+                html = html.replace(regex, replacedVal);
             });
         }
 
@@ -156,29 +202,39 @@ export default function Create({ template }) {
                                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {template.variables && template.variables.map((v, idx) => (
-                                            <div key={idx} className={v.type === 'textarea' || (v.type === 'text' && v.name.includes('alasan')) ? 'md:col-span-2' : ''}>
-                                                <label className="block text-xs font-bold text-gray-700 mb-2">{v.label}</label>
-                                                {v.type === 'textarea' ? (
-                                                    <textarea
+                                            <React.Fragment key={idx}>
+                                                {v.type === 'signature' ? (
+                                                    <SignatureField
+                                                        label={v.label}
                                                         value={data.form_data[v.name] || ''}
-                                                        onChange={(e) => handleChange(v.name, e.target.value)}
-                                                        rows="4"
-                                                        className="w-full bg-[#fbfcf9] border border-gray-200 rounded-xl p-3 text-sm text-gray-700 placeholder-gray-400 focus:border-[#4a6b52] focus:ring-1 focus:ring-[#4a6b52]"
-                                                        placeholder={`Masukkan ${v.label.toLowerCase()}`}
-                                                        required
-                                                    ></textarea>
-                                                ) : (
-                                                    <input
-                                                        type={v.type === 'number' ? 'text' : v.type}
-                                                        value={data.form_data[v.name] || ''}
-                                                        onChange={(e) => handleChange(v.name, e.target.value)}
-                                                        className="w-full bg-[#fbfcf9] border border-gray-200 rounded-xl p-3 text-sm text-gray-700 placeholder-gray-400 focus:border-[#4a6b52] focus:ring-1 focus:ring-[#4a6b52]"
-                                                        placeholder={`Masukkan ${v.label.toLowerCase()}`}
-                                                        required
+                                                        onChange={(val) => handleChange(v.name, val)}
                                                     />
+                                                ) : (
+                                                    <div className={v.type === 'textarea' || (v.type === 'text' && v.name.includes('alasan')) ? 'md:col-span-2' : ''}>
+                                                        <label className="block text-xs font-bold text-gray-700 mb-2">{v.label}</label>
+                                                        {v.type === 'textarea' ? (
+                                                            <textarea
+                                                                value={data.form_data[v.name] || ''}
+                                                                onChange={(e) => handleChange(v.name, e.target.value)}
+                                                                rows="4"
+                                                                className="w-full bg-[#fbfcf9] border border-gray-200 rounded-xl p-3 text-sm text-gray-700 placeholder-gray-400 focus:border-[#4a6b52] focus:ring-1 focus:ring-[#4a6b52]"
+                                                                placeholder={`Masukkan ${v.label.toLowerCase()}`}
+                                                                required
+                                                            ></textarea>
+                                                        ) : (
+                                                            <input
+                                                                type={v.type === 'number' ? 'text' : v.type}
+                                                                value={data.form_data[v.name] || ''}
+                                                                onChange={(e) => handleChange(v.name, e.target.value)}
+                                                                className="w-full bg-[#fbfcf9] border border-gray-200 rounded-xl p-3 text-sm text-gray-700 placeholder-gray-400 focus:border-[#4a6b52] focus:ring-1 focus:ring-[#4a6b52]"
+                                                                placeholder={`Masukkan ${v.label.toLowerCase()}`}
+                                                                required
+                                                            />
+                                                        )}
+                                                        {errors[`form_data.${v.name}`] && <p className="text-red-500 text-xs mt-1">{errors[`form_data.${v.name}`]}</p>}
+                                                    </div>
                                                 )}
-                                                {errors[`form_data.${v.name}`] && <p className="text-red-500 text-xs mt-1">{errors[`form_data.${v.name}`]}</p>}
-                                            </div>
+                                            </React.Fragment>
                                         ))}
                                     </div>
                                 </div>
@@ -217,13 +273,10 @@ export default function Create({ template }) {
 
                                     <div className="p-4 md:p-8 overflow-y-auto bg-gray-100 flex justify-center">
                                         {/* A4 Size Paper Representation */}
-                                        <div className="bg-white p-10 md:p-16 shadow-sm w-full max-w-[21cm] min-h-[29.7cm] border border-gray-200 flex flex-col text-gray-800">
-                                            <div dangerouslySetInnerHTML={{ __html: kopSurat }} className="prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none max-w-none text-gray-800" />
-                                            <TiptapEditor
-                                                value={previewHtml}
-                                                onChange={(val) => setPreviewHtml(val)}
-                                                readOnly={false}
-                                                variant="document"
+                                        <div className="bg-white p-10 md:p-16 shadow-sm w-full max-w-[21cm] min-h-[29.7cm] flex flex-col text-gray-800">
+                                            <div 
+                                                className="prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none max-w-none text-gray-800"
+                                                dangerouslySetInnerHTML={{ __html: kopSurat + previewHtml }} 
                                             />
                                         </div>
                                     </div>

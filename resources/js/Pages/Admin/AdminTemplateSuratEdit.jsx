@@ -193,7 +193,7 @@ export default function AdminTemplateSuratEdit({ template }) {
             {/* Modal Preview */}
             {previewModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-                    <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+                    <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
                         <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                             <h2 className="text-xl font-bold text-gray-800">Preview: {data.judul || 'Template'}</h2>
                             <button onClick={() => setPreviewModalOpen(false)} className="text-gray-400 hover:text-gray-700">
@@ -201,7 +201,7 @@ export default function AdminTemplateSuratEdit({ template }) {
                             </button>
                         </div>
                         <div className="p-8 overflow-y-auto bg-white flex justify-center">
-                            <div className="bg-white p-10 shadow-sm w-full max-w-[21cm] min-h-[29.7cm] prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none text-gray-800 "
+                            <div className="bg-white p-10 w-full max-w-[21cm] min-h-[29.7cm] prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none text-gray-800 "
                                 dangerouslySetInnerHTML={{ __html: kopSurat + data.body }}
                             />
                         </div>

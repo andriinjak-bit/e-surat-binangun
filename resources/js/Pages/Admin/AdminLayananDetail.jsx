@@ -271,7 +271,7 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                         {/* Document Viewer */}
                         <div className="bg-white rounded-t-2xl flex-grow overflow-y-auto p-4 md:p-8 flex justify-center border border-gray-200">
                             <div
-                                className="bg-white w-full max-w-[21cm] min-h-[29.7cm] shadow-sm p-10 md:p-16 flex flex-col prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none text-gray-800"
+                                className="bg-white w-full max-w-[21cm] min-h-[29.7cm] p-10 md:p-16 flex flex-col prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none text-gray-800"
                                 dangerouslySetInnerHTML={{ __html: kopSurat + htmlOutput }}
                             />
                         </div>
