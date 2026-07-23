@@ -46,14 +46,23 @@ export default function Navbar({ variant = "civil" }) {
             <div className="items-center gap-4 hidden md:flex">
                 {user ? (
                     <>
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm">
-                                {variant === "civil" ? (user.penduduk?.nama || "User") : "Admin Desa"}
-                            </span>
-                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
-                                <User size={18} />
+                        {variant === "civil" ? (
+                            <Link href="/profile" className="flex items-center gap-2 hover:bg-gray-100 px-3 py-1.5 rounded-full transition">
+                                <span className="text-sm font-semibold">
+                                    {user.penduduk?.nama || "User"}
+                                </span>
+                                <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                    <User size={18} />
+                                </div>
+                            </Link>
+                        ) : (
+                            <div className="flex items-center gap-2 px-3 py-1.5">
+                                <span className="text-sm">Admin Desa</span>
+                                <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                    <User size={18} />
+                                </div>
                             </div>
-                        </div>
+                        )}
                         <Link
                             href="/logout"
                             method="post"
@@ -113,14 +122,23 @@ export default function Navbar({ variant = "civil" }) {
                         <div className="flex flex-col gap-4">
                             {user ? (
                                 <>
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
-                                            <User size={18} />
+                                    {variant === "civil" ? (
+                                        <Link href="/profile" className="flex items-center gap-3 p-2 hover:bg-gray-100/50 rounded-lg transition">
+                                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                                <User size={18} />
+                                            </div>
+                                            <span className="font-semibold">
+                                                {user.penduduk?.nama || "User"}
+                                            </span>
+                                        </Link>
+                                    ) : (
+                                        <div className="flex items-center gap-3 p-2">
+                                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                                <User size={18} />
+                                            </div>
+                                            <span className="font-semibold">Admin Desa</span>
                                         </div>
-                                        <span className="font-semibold">
-                                            {variant === "civil" ? (user.penduduk?.nama || "User") : "Admin Desa"}
-                                        </span>
-                                    </div>
+                                    )}
                                     <Link
                                         href="/logout"
                                         method="post"
