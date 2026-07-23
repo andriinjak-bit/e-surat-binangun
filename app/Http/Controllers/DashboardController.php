@@ -31,9 +31,12 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             $surats = collect([]); // Empty collection
         }
+
+        $suratTemplates = \App\Models\SuratTemplate::all();
         
         return \Inertia\Inertia::render('Dashboard', [
-            'surats' => $surats
+            'surats' => $surats,
+            'suratTemplates' => $suratTemplates
         ]);
     }
 }
