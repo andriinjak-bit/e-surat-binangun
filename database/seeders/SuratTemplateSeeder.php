@@ -57,7 +57,7 @@ class SuratTemplateSeeder extends Seeder
 <p style="margin-left: 20px; margin-bottom: 12px;">Bahwa Menurut Keterangan Yang Bersangkutan Memiliki {{usaha}} yang bertempat di {{alamat}}. 
 <!-- PENUTUP SURAT -->
 <p style="margin-left: 20px; margin-bottom: 45px; text-align: justify;">
-    Surat Keterangan ini buat untuk {{alasan}}.
+    Surat Keterangan ini dibuat untuk {{alasan}}.
 </p>
 <p style="margin-left: 20px; margin-bottom: 45px; text-align: justify;">
     Demikian surat keterangan ini harap menjadikan periksa dan dipergunakan sebagaimana mestinya.

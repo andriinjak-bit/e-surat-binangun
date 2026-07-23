@@ -20,6 +20,11 @@ class SuratParserService
         $htmlBody = $suratRequest->template->body;
         $formData = $suratRequest->form_data;
         
+        // If the user modified the HTML manually during request creation, return that
+        if (!empty($formData['_custom_html'])) {
+            return $formData['_custom_html'];
+        }
+
         if (empty($htmlBody)) {
             return '';
         }
