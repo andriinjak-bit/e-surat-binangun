@@ -8,21 +8,27 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
     const chatContainerRef = useRef(null);
     const [commentText, setCommentText] = useState('');
 
-    const { data: statusData, setData: setStatusData, post: postStatus, processing: statusProcessing } = useForm({
-        status: '',
+    const { data: rejectData, setData: setRejectData, post: postReject, processing: rejectProcessing } = useForm({
+        status: 'ditolak',
         alasan: ''
     });
 
+    const [processLoading, setProcessLoading] = useState(false);
+
     const handleReject = () => {
-        statusData.status = 'ditolak';
-        postStatus(`/admin/layanan/status/${suratRequest.id}`, {
-            onSuccess: () => setIsRejectModalOpen(false)
+        postReject(`/admin/layanan/status/${suratRequest.id}`, {
+            onSuccess: () => {
+                setIsRejectModalOpen(false);
+                setRejectData('alasan', '');
+            }
         });
     };
 
     const handleProcess = () => {
-        setStatusData('status', 'diproses');
-        postStatus(`/admin/layanan/status/${suratRequest.id}`);
+        setProcessLoading(true);
+        router.post(`/admin/layanan/status/${suratRequest.id}`, { status: 'diproses' }, {
+            onFinish: () => setProcessLoading(false)
+        });
     };
 
     const handleSendComment = () => {
@@ -294,9 +300,9 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                                     Download / Cetak Surat
                                 </button>
                                 {suratRequest.status === 'pending' && (
-                                    <button disabled={statusProcessing} onClick={handleProcess} className="w-full md:w-auto flex items-center justify-center gap-2 bg-[#2b3a20] hover:bg-[#1f2917] text-white px-6 py-3 rounded-xl text-sm font-bold transition shadow-sm">
+                                    <button disabled={processLoading} onClick={handleProcess} className="w-full md:w-auto flex items-center justify-center gap-2 bg-[#2b3a20] hover:bg-[#1f2917] text-white px-6 py-3 rounded-xl text-sm font-bold transition shadow-sm">
                                         <CheckCircle size={18} />
-                                        Lanjutkan Permohonan
+                                        {processLoading ? 'Memproses...' : 'Lanjutkan Permohonan'}
                                     </button>
                                 )}
                                 {suratRequest.status === 'diproses' && (
@@ -343,8 +349,8 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                                 <textarea
                                     rows={4}
                                     placeholder="Contoh: Dokumen KTP kurang jelas atau tidak terbaca..."
-                                    value={statusData.alasan}
-                                    onChange={(e) => setStatusData('alasan', e.target.value)}
+                                    value={rejectData.alasan}
+                                    onChange={(e) => setRejectData('alasan', e.target.value)}
                                     className="w-full bg-[#f6f7f2] border border-gray-200 rounded-xl p-4 text-sm text-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-[#2b3a20] outline-none resize-none"
                                 />
                             </div>
@@ -368,7 +374,7 @@ export default function AdminLayananDetail({ suratRequest, htmlOutput }) {
                             </button>
                             <button
                                 onClick={handleReject}
-                                disabled={statusProcessing}
+                                disabled={rejectProcessing}
                                 className="px-6 py-2.5 bg-[#be2e2e] hover:bg-[#9d2424] text-white text-sm font-bold rounded-xl shadow-sm transition disabled:opacity-50"
                             >
                                 Konfirmasi Tolak

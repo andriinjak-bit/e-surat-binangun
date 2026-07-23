@@ -74,7 +74,7 @@ class AdminLayananController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $suratRequest = SuratRequest::findOrFail($id);
+        $suratRequest = SuratRequest::with(['user.penduduk', 'template'])->findOrFail($id);
 
         $validated = $request->validate([
             'status' => 'required|in:diproses,ditolak',
@@ -92,7 +92,7 @@ class AdminLayananController extends Controller
         $suratRequest->save();
 
         $actionName = $validated['status'] === 'diproses' ? 'PROSES SURAT' : 'TOLAK SURAT';
-        $desc = ($validated['status'] === 'diproses' ? 'Memproses pengajuan ' : 'Menolak pengajuan ') . $suratRequest->template->nama . ' milik warga ' . ($suratRequest->user->name ?? 'Anonim');
+        $desc = ($validated['status'] === 'diproses' ? 'Memproses pengajuan ' : 'Menolak pengajuan ') . $suratRequest->template->judul . ' milik warga ' . ($suratRequest->user->penduduk->nama ?? 'Anonim');
         \App\Models\ActivityLog::record($actionName, $desc);
 
         return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
@@ -100,7 +100,7 @@ class AdminLayananController extends Controller
 
     public function uploadFinal(Request $request, $id)
     {
-        $suratRequest = SuratRequest::findOrFail($id);
+        $suratRequest = SuratRequest::with(['user.penduduk', 'template'])->findOrFail($id);
 
         $request->validate([
             'file_balasan' => 'required|mimes:pdf|max:5120',
@@ -116,7 +116,7 @@ class AdminLayananController extends Controller
             $suratRequest->status = 'selesai';
             $suratRequest->save();
 
-            \App\Models\ActivityLog::record('SELESAI SURAT', 'Mengunggah balasan surat ' . $suratRequest->template->nama . ' milik warga ' . ($suratRequest->user->name ?? 'Anonim'));
+            \App\Models\ActivityLog::record('SELESAI SURAT', 'Mengunggah balasan surat ' . $suratRequest->template->judul . ' milik warga ' . ($suratRequest->user->penduduk->nama ?? 'Anonim'));
         }
 
         return redirect()->route('admin.layanan')->with('success', 'Surat balasan berhasil diunggah.');

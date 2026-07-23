@@ -28,7 +28,7 @@ class SuratRequestController extends Controller
             'form_data' => $request->form_data,
         ]);
 
-        \App\Models\ActivityLog::record('PENGAJUAN SURAT', 'Warga ' . auth()->user()->name . ' mengajukan surat: ' . $template->nama);
+        \App\Models\ActivityLog::record('PENGAJUAN SURAT', 'Warga ' . (auth()->user()->penduduk->nama ?? 'Anonim') . ' mengajukan surat: ' . $template->judul);
 
         return redirect()->route('dashboard')
             ->with('success', 'Permohonan surat berhasil diajukan. Silakan cek status secara berkala.');

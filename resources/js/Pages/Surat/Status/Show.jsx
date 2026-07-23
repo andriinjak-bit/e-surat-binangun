@@ -66,8 +66,8 @@ export default function Show({ suratRequest, htmlOutput }) {
                             <span className="w-1.5 h-1.5 rounded-full inline-block mr-2 bg-current opacity-75"></span>
                             {statusBadge.text}
                         </div>
-                        <Link 
-                            href="/surat/status" 
+                        <Link
+                            href="/surat/status"
                             className="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 px-4 py-2 rounded-full flex items-center gap-2 font-medium text-sm transition shadow-sm ml-auto md:ml-0"
                         >
                             <ChevronLeft size={16} />
@@ -96,12 +96,12 @@ export default function Show({ suratRequest, htmlOutput }) {
                                     </div>
                                 </div>
 
-                                <div className="mt-12 bg-white w-full max-w-[21cm] min-h-[29.7cm] shadow-md border border-gray-100 p-10 md:p-16 flex flex-col text-gray-800 mx-auto">
+                                <div className="mt-12 bg-white w-full max-w-[21cm] min-h-[29.7cm] p-10 md:p-16 flex flex-col text-gray-800 mx-auto">
                                     <div dangerouslySetInnerHTML={{ __html: kopSurat }} className="prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none max-w-none text-gray-800" />
-                                    <TiptapEditor 
-                                        value={htmlOutput} 
-                                        readOnly={true} 
-                                        variant="document"
+                                    <TiptapEditor
+                                        value={htmlOutput}
+                                        readOnly={true}
+                                        variant=""
                                     />
                                 </div>
                             </div>
@@ -170,7 +170,7 @@ export default function Show({ suratRequest, htmlOutput }) {
                                 {suratRequest.form_data?._comments?.length > 0 ? (
                                     suratRequest.form_data._comments.map((comment, idx) => {
                                         const isMyMessage = comment.user_id === auth.user.id && !comment.is_admin;
-                                        
+
                                         return (
                                             <div key={idx} className={`flex gap-3 ${isMyMessage ? 'flex-row-reverse' : 'flex-row'}`}>
                                                 <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
@@ -194,7 +194,7 @@ export default function Show({ suratRequest, htmlOutput }) {
                                     })
                                 ) : (
                                     // Empty state only if no comments AND not rejected AND not complete
-                                    !(suratRequest.status === 'ditolak' && suratRequest.form_data?._alasan_tolak) && 
+                                    !(suratRequest.status === 'ditolak' && suratRequest.form_data?._alasan_tolak) &&
                                     !(suratRequest.status === 'selesai' && suratRequest.form_data?._file_balasan) && (
                                         <div className="flex-1 flex flex-col items-center justify-center text-gray-400 h-full">
                                             <MessageSquare size={32} className="mb-2 opacity-30" />
@@ -216,8 +216,8 @@ export default function Show({ suratRequest, htmlOutput }) {
                                         disabled={suratRequest.status === 'selesai'}
                                         className="w-full bg-white border border-[#d2dcbc] rounded-xl pl-4 pr-12 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-[#2b3a20] outline-none shadow-sm disabled:bg-gray-100 disabled:cursor-not-allowed"
                                     />
-                                    <button 
-                                        onClick={handleSendComment} 
+                                    <button
+                                        onClick={handleSendComment}
                                         disabled={suratRequest.status === 'selesai' || !commentText.trim()}
                                         className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-[#2b3a20] rounded-lg flex items-center justify-center text-white hover:bg-[#1a2413] transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                                     >

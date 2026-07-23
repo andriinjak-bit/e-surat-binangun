@@ -15,11 +15,17 @@ export default function Index({ suratRequests, stats, filters }) {
     const getStatusBadge = (status) => {
         switch (status) {
             case 'pending':
-            case 'diproses':
                 return (
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">
                         <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
-                        Diproses
+                        Menunggu Verifikasi
+                    </div>
+                );
+            case 'diproses':
+                return (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">
+                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                        Sedang Diproses
                     </div>
                 );
             case 'selesai':
@@ -61,15 +67,15 @@ export default function Index({ suratRequests, stats, filters }) {
             <Navbar variant="civil" />
 
             <main className="flex-grow max-w-7xl w-full mx-auto px-4 md:px-8 lg:px-20 py-10 md:py-16">
-                
+
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
                     <div>
                         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Status Pengajuan Saya</h1>
                         <p className="text-gray-600 text-sm md:text-base">Pantau perkembangan surat administratif Anda secara real-time.</p>
                     </div>
-                    <Link 
-                        href="/layanan" 
+                    <Link
+                        href="/layanan"
                         className="bg-[#2b3a20] hover:bg-[#1a2413] text-white px-5 py-2.5 rounded-lg flex items-center gap-2 font-medium text-sm transition shadow-sm"
                     >
                         <Plus size={18} />
@@ -100,11 +106,11 @@ export default function Index({ suratRequests, stats, filters }) {
                             <div className="bg-white p-2 rounded-lg shadow-sm text-[#d97706]">
                                 <Clock size={20} />
                             </div>
-                            <span className="text-[10px] font-bold text-gray-500 tracking-wider">PROSES</span>
+                            <span className="text-[10px] font-bold text-gray-500 tracking-wider">PROSES & VERIFIKASI</span>
                         </div>
                         <div className="flex items-end gap-2">
                             <span className="text-4xl font-light text-[#d97706] leading-none">{String(stats.pending + stats.diproses).padStart(2, '0')}</span>
-                            <span className="text-sm font-medium text-gray-600 mb-1">Verifikasi</span>
+                            <span className="text-sm font-medium text-gray-600 mb-1">Proses & Verifikasi</span>
                         </div>
                         <div className="absolute bottom-0 left-6 right-6 h-1 bg-[#d97706] rounded-t-md"></div>
                     </div>
@@ -154,7 +160,7 @@ export default function Index({ suratRequests, stats, filters }) {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </form>
-                    
+
                     <div className="flex gap-3 w-full lg:w-auto">
                         <button className="flex-1 lg:flex-none flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
                             <Filter size={16} />
@@ -197,7 +203,7 @@ export default function Index({ suratRequests, stats, filters }) {
                                                 {getStatusBadge(request.status)}
                                             </td>
                                             <td className="px-6 py-4 text-center">
-                                                <Link 
+                                                <Link
                                                     href={route('surat.status.detail', { id: request.id })}
                                                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-[#4a6b52] transition"
                                                 >
@@ -229,9 +235,9 @@ export default function Index({ suratRequests, stats, filters }) {
                                 // Skip Next/Prev labels, use icons instead
                                 if (link.label.includes('Previous')) {
                                     return (
-                                        <Link 
-                                            key={index} 
-                                            href={link.url || '#'} 
+                                        <Link
+                                            key={index}
+                                            href={link.url || '#'}
                                             className={`w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 ${!link.url ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-50'} transition`}
                                             preserveScroll
                                         >
@@ -241,9 +247,9 @@ export default function Index({ suratRequests, stats, filters }) {
                                 }
                                 if (link.label.includes('Next')) {
                                     return (
-                                        <Link 
-                                            key={index} 
-                                            href={link.url || '#'} 
+                                        <Link
+                                            key={index}
+                                            href={link.url || '#'}
                                             className={`w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 ${!link.url ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-50'} transition`}
                                             preserveScroll
                                         >
@@ -251,9 +257,9 @@ export default function Index({ suratRequests, stats, filters }) {
                                         </Link>
                                     );
                                 }
-                                
+
                                 return (
-                                    <Link 
+                                    <Link
                                         key={index}
                                         href={link.url || '#'}
                                         className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition ${link.active ? 'bg-[#2b3a20] text-white border-transparent' : 'border border-gray-200 text-gray-600 hover:bg-gray-50'}`}
