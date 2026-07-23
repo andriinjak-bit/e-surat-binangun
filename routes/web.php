@@ -164,6 +164,11 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
     Route::get('/surat/request/template/{template}', [\App\Http\Controllers\SuratRequestController::class, 'create'])->name('surat.request.create');
     Route::post('/surat/request/template/{template}', [\App\Http\Controllers\SuratRequestController::class, 'store'])->name('surat.request.store');
 
+    // User Surat Status Routes
+    Route::get('/surat/status', [\App\Http\Controllers\SuratStatusController::class, 'index'])->name('surat.status.index');
+    Route::get('/surat/status/detail', [\App\Http\Controllers\SuratStatusController::class, 'show'])->name('surat.status.detail');
+    Route::post('/surat/status/comment/{id}', [\App\Http\Controllers\SuratStatusController::class, 'addComment'])->name('surat.status.comment');
+
     // ==========================================
     // ADMIN ROUTES (Require Admin Role)
     // ==========================================
