@@ -145,7 +145,9 @@ export default function TiptapEditor({ value, onChange, readOnly = false, varian
         editable: !readOnly,
         content: value,
         onUpdate: ({ editor }) => {
-            onChange(editor.getHTML());
+            if (onChange) {
+                onChange(editor.getHTML());
+            }
         },
         editorProps: {
             attributes: {

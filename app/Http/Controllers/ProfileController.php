@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Penduduk;
+use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
@@ -13,7 +14,12 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $penduduk = $user->penduduk;
-        return view('profile.index', compact('user', 'penduduk'));
+        
+        if ($penduduk) {
+            $penduduk->append('usia');
+        }
+
+        return Inertia::render('Profile/Index', compact('user', 'penduduk'));
     }
 
     public function edit()
@@ -21,13 +27,13 @@ class ProfileController extends Controller
         $user = Auth::user();
         $penduduk = $user->penduduk;
         
-        // If somehow they don't have penduduk data yet, we can create an empty one or handle it.
-        // But registration creates it, so it should exist.
         if (!$penduduk) {
             $penduduk = new Penduduk(['nik' => $user->nik]);
+        } else {
+            $penduduk->append('usia');
         }
         
-        return view('profile.edit', compact('user', 'penduduk'));
+        return Inertia::render('Profile/Edit', compact('user', 'penduduk'));
     }
 
     public function update(Request $request)

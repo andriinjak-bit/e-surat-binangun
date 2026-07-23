@@ -4,9 +4,12 @@ import { LogOut, User, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Navbar({ variant = "civil" }) {
-    const { auth } = usePage().props;
+    const { auth, url } = usePage().props;
+    const { url: currentUrl } = usePage();
     const user = auth?.user;
     const [isOpen, setIsOpen] = useState(false);
+
+    const isCivilActive = (path) => currentUrl.startsWith(path);
 
     return (
         <nav className={`${variant === "admin" ? "bg-[#2b3a20] text-white" : "bg-[#fcf8f0] text-gray-700"} px-4 md:px-8 lg:px-20 py-4 flex items-center justify-between border-b border-gray-200 shadow-sm sticky top-0 z-50 w-full`}>
@@ -24,9 +27,9 @@ export default function Navbar({ variant = "civil" }) {
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium">
                     {variant === "civil" ? (
                         <>
-                            <Link href="/dashboard" className="text-[#4a6b52] border-b-2 border-[#4a6b52] pb-1">Beranda</Link>
-                            <Link href="/layanan" className="hover:text-[#4a6b52] transition">Layanan</Link>
-                            <Link href="" className="hover:text-[#4a6b52] transition">Cek Status</Link>
+                            <Link href="/dashboard" className={`${isCivilActive('/dashboard') ? 'text-[#4a6b52] border-b-2 border-[#4a6b52] font-bold' : 'hover:text-[#4a6b52] border-b-2 border-transparent'} pb-1 transition`}>Beranda</Link>
+                            <Link href="/layanan" className={`${isCivilActive('/layanan') ? 'text-[#4a6b52] border-b-2 border-[#4a6b52] font-bold' : 'hover:text-[#4a6b52] border-b-2 border-transparent'} pb-1 transition`}>Layanan</Link>
+                            <Link href="/surat/status" className={`${isCivilActive('/surat/status') ? 'text-[#4a6b52] border-b-2 border-[#4a6b52] font-bold' : 'hover:text-[#4a6b52] border-b-2 border-transparent'} pb-1 transition`}>Cek Status</Link>
                         </>
                     ) : (
                         <>
@@ -43,14 +46,23 @@ export default function Navbar({ variant = "civil" }) {
             <div className="items-center gap-4 hidden md:flex">
                 {user ? (
                     <>
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm">
-                                {variant === "civil" ? (user.penduduk?.nama || "User") : "Admin Desa"}
-                            </span>
-                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
-                                <User size={18} />
+                        {variant === "civil" ? (
+                            <Link href="/profile" className="flex items-center gap-2 hover:bg-gray-100 px-3 py-1.5 rounded-full transition">
+                                <span className="text-sm font-semibold">
+                                    {user.penduduk?.nama || "User"}
+                                </span>
+                                <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                    <User size={18} />
+                                </div>
+                            </Link>
+                        ) : (
+                            <div className="flex items-center gap-2 px-3 py-1.5">
+                                <span className="text-sm">Admin Desa</span>
+                                <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                    <User size={18} />
+                                </div>
                             </div>
-                        </div>
+                        )}
                         <Link
                             href="/logout"
                             method="post"
@@ -89,9 +101,9 @@ export default function Navbar({ variant = "civil" }) {
                                 <div className="flex flex-col gap-4 border-b border-gray-300/30 pb-4">
                                     {variant === "civil" ? (
                                         <>
-                                            <Link href="/dashboard" className="font-medium text-[#4a6b52]">Beranda</Link>
-                                            <Link href="/layanan" className="font-medium hover:text-[#4a6b52] transition">Layanan</Link>
-                                            <Link href="" className="font-medium hover:text-[#4a6b52] transition">Cek Status</Link>
+                                            <Link href="/dashboard" className={`${isCivilActive('/dashboard') ? 'font-bold text-[#4a6b52]' : 'font-medium hover:text-[#4a6b52]'} transition`}>Beranda</Link>
+                                            <Link href="/layanan" className={`${isCivilActive('/layanan') ? 'font-bold text-[#4a6b52]' : 'font-medium hover:text-[#4a6b52]'} transition`}>Layanan</Link>
+                                            <Link href="/surat/status" className={`${isCivilActive('/surat/status') ? 'font-bold text-[#4a6b52]' : 'font-medium hover:text-[#4a6b52]'} transition`}>Cek Status</Link>
                                         </>
                                     ) : (
                                         <>
@@ -110,14 +122,23 @@ export default function Navbar({ variant = "civil" }) {
                         <div className="flex flex-col gap-4">
                             {user ? (
                                 <>
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
-                                            <User size={18} />
+                                    {variant === "civil" ? (
+                                        <Link href="/profile" className="flex items-center gap-3 p-2 hover:bg-gray-100/50 rounded-lg transition">
+                                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                                <User size={18} />
+                                            </div>
+                                            <span className="font-semibold">
+                                                {user.penduduk?.nama || "User"}
+                                            </span>
+                                        </Link>
+                                    ) : (
+                                        <div className="flex items-center gap-3 p-2">
+                                            <div className="bg-[#d2dcbc] p-1.5 rounded-full text-[#2b3a20]">
+                                                <User size={18} />
+                                            </div>
+                                            <span className="font-semibold">Admin Desa</span>
                                         </div>
-                                        <span className="font-semibold">
-                                            {variant === "civil" ? (user.penduduk?.nama || "User") : "Admin Desa"}
-                                        </span>
-                                    </div>
+                                    )}
                                     <Link
                                         href="/logout"
                                         method="post"
