@@ -14,19 +14,11 @@ class DatabaseSeeder extends Seeder
     {
 
         User::create([
-            'nik' => '1234567890123456',
-            'password' => bcrypt('password'), // password default
+            'nik' => '1123581321345589',
+            'password' => bcrypt('admisibinangun2026'), // password default
             'is_admin' => true,
         ]);
-        User::Create(
-            [
-                'nik' => '1234567890123453',
-                'password' => bcrypt('password'), // password default
-                'is_admin' => false,
-            ]
-        );
         $this->call([
-            PendudukSeeder::class,
             SuratTemplateSeeder::class,
         ]);
     }
