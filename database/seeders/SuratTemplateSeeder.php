@@ -18,7 +18,7 @@ class SuratTemplateSeeder extends Seeder
                 'body' => '
 <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT KETERANGAN USAHA</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor : ................/ 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor : ................/ 409.40.2 / ......</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar menerangkan dengan sebenarnya bahwa :</p>
@@ -54,7 +54,7 @@ class SuratTemplateSeeder extends Seeder
 </table>
 
 <!-- MAKSUD / KEPERLUAN -->
-<p style="margin-left: 20px; margin-bottom: 12px;">Bahwa Menurut Keterangan Yang Bersangkutan Memiliki {{usaha}} yang bertempat di {{alamat}}. 
+<p style="margin-left: 20px; margin-bottom: 12px;">Bahwa Menurut Keterangan Yang Bersangkutan Memiliki <strong>{{usaha}}</strong> yang bertempat di {{alamat}}. 
 <!-- PENUTUP SURAT -->
 <p style="margin-left: 20px; margin-bottom: 45px; text-align: justify;">
     Surat Keterangan ini dibuat untuk {{alasan}}.
@@ -92,7 +92,7 @@ class SuratTemplateSeeder extends Seeder
                 'body' => '
 <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u> SURAT  KETERANGAN TIDAK MAMPU </u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.40.2 / ......</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar, Menerangkan dengan sebenarnya bahwa :</p>
@@ -167,7 +167,7 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
                 'body' => '
 <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT PENGANTAR SKCK</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.40.2 / ......</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar, Menerangkan dengan sebenarnya bahwa :</p>
@@ -286,7 +286,7 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
                 'body' => '
                     <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT KETERANGAN KEMATIAN</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.40.2 / ......</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini:</p>
@@ -427,11 +427,11 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
                 ]
             ],
             [
-                'judul' => 'Surat Keterangan Pengantar Kehilangan',
+                'judul' => 'Surat Pengantar Kehilangan',
                 'body' => '
 <!-- JUDUL SURAT -->
-<h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT KETERANGAN PENGANTAR</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
+<h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT PENGANTAR KEHILANGAN</u></strong></h3>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.40.2 / ......</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar, M   enerangkan dengan sebenarnya bahwa :</p>
