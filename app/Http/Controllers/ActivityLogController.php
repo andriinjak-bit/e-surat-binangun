@@ -10,7 +10,8 @@ class ActivityLogController extends Controller
     {
         $query = \App\Models\ActivityLog::with('user')
             ->whereIn('action', ['PENGAJUAN SURAT', 'PROSES SURAT', 'SELESAI SURAT', 'TOLAK SURAT'])
-            ->latest();
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('id', 'desc');
 
         if ($request->filled('date')) {
             $query->whereDate('created_at', $request->date);
@@ -27,7 +28,7 @@ class ActivityLogController extends Controller
         }
 
         $logs = $query->paginate(20)->withQueryString();
-        
+
         $actions = \App\Models\ActivityLog::whereIn('action', ['PENGAJUAN SURAT', 'PROSES SURAT', 'SELESAI SURAT', 'TOLAK SURAT'])
             ->select('action')
             ->distinct()

@@ -151,7 +151,7 @@ export default function TiptapEditor({ value, onChange, readOnly = false, varian
         },
         editorProps: {
             attributes: {
-                class: `prose prose-sm sm:prose-base prose-td:border-none prose-th:border-none prose-tr:border-none max-w-none focus:outline-none ${variant === 'document' ? 'p-0' : 'p-6 bg-white min-h-[300px]'}`,
+                class: `prose prose-sm sm:prose-base prose-p:my-0.5 prose-p:leading-snug prose-td:border-none prose-th:border-none prose-tr:border-none prose-td:p-0 prose-th:p-0 prose-table:my-2 max-w-none focus:outline-none ${variant === 'document' ? 'p-0' : 'p-6 bg-white min-h-[300px]'}`,
             },
         },
     });

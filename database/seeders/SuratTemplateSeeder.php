@@ -18,7 +18,7 @@ class SuratTemplateSeeder extends Seeder
                 'body' => '
 <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT KETERANGAN USAHA</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor: 474.2 / {{nomor_surat}} / 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor : ................/ 409.06.05 / 2026</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar menerangkan dengan sebenarnya bahwa :</p>
@@ -78,7 +78,6 @@ class SuratTemplateSeeder extends Seeder
 </table>
 ',
                 'variables' => [
-                    ['name' => 'nomor_surat', 'label' => 'Nomor Surat', 'type' => 'text'],
                     ['name' => 'nama_lengkap', 'label' => 'Nama Lengkap', 'type' => 'text'],
                     ['name' => 'nik', 'label' => 'NIK Pemohon', 'type' => 'number'],
                     ['name' => 'umur', 'label' => 'Umur', 'type' => 'number'],
@@ -93,7 +92,7 @@ class SuratTemplateSeeder extends Seeder
                 'body' => '
 <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u> SURAT  KETERANGAN TIDAK MAMPU </u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor: 474.2 / {{nomor_surat}} / 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar, Menerangkan dengan sebenarnya bahwa :</p>
@@ -144,7 +143,7 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
 <table style="width: 100%; border-collapse: collapse;">
     <tbody>
         <tr>
-            <td style="width: 50%; text-align: right; vertical-align: top;">
+            <td style="width: 50%; text-align: right; ve<rtical-align: top;">
                 <p style="margin-right: 100px;">Binangun, </p>
                 <p style="margin: 0; font-weight: bold; text-transform: uppercase;">Kepala Desa Binangun</p>
                 <p style="margin-top: 90px; margin-bottom: 0;"><strong><u>H.KADI</u></strong></p>
@@ -154,7 +153,6 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
 </table>
 ',
                 'variables' => [
-                    ['name' => 'nomor_surat', 'label' => 'Nomor Surat', 'type' => 'text'],
                     ['name' => 'nama_lengkap', 'label' => 'Nama Lengkap', 'type' => 'text'],
                     ['name' => 'nik', 'label' => 'NIK Pemohon', 'type' => 'number'],
                     ['name' => 'tgl_lahir', 'label' => 'Tempat & Tanggal Lahir', 'type' => 'text'],
@@ -169,7 +167,7 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
                 'body' => '
 <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT PENGANTAR SKCK</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor: 474.2 / {{nomor_surat}} / 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar, Menerangkan dengan sebenarnya bahwa :</p>
@@ -269,7 +267,6 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
 </table>
 ',
                 'variables' => [
-                    ['name' => 'nomor_surat', 'label' => 'Nomor Surat', 'type' => 'text'],
                     ['name' => 'nama_lengkap', 'label' => 'Nama Lengkap', 'type' => 'text'],
                     ['name' => 'nik', 'label' => 'NIK Pemohon', 'type' => 'number'],
                     ['name' => 'tgl_lahir', 'label' => 'Tempat & Tanggal Lahir', 'type' => 'text'],
@@ -289,7 +286,7 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
                 'body' => '
                     <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT KETERANGAN KEMATIAN</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor: 474.3 / {{nomor_surat}} / 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini:</p>
@@ -414,7 +411,6 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
 
                 ',
                 'variables' => [
-                    ['name' => 'nomor_surat', 'label' => 'Nomor Surat', 'type' => 'text'],
                     ['name' => 'nama', 'label' => 'Nama Almarhum/ah', 'type' => 'text'],
                     ['name' => 'nik', 'label' => 'NIK Almarhum/ah', 'type' => 'number'],
                     ['name' => 'Tgl_lahir', 'label' => 'Hari & Tanggal Lahir', 'type' => 'text'],
@@ -435,7 +431,7 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
                 'body' => '
 <!-- JUDUL SURAT -->
 <h3 style="text-align: center; margin-bottom: 2px;"><strong><u>SURAT KETERANGAN PENGANTAR</u></strong></h3>
-<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor: 474.4 / {{nomor_surat}} / 409.06.05 / 2026</p>
+<p style="text-align: center; margin-top: 0; margin-bottom: 30px;">Nomor  : ................/ 409.06.05 / 2026</p>
 
 <!-- IDENTITAS PEMBUAT SURAT -->
 <p style="margin-left: 20px; margin-bottom: 12px;">Yang bertanda tangan dibawah ini Kepala Desa Binangun Kec.Binangun Kabupaten Blitar, M   enerangkan dengan sebenarnya bahwa :</p>
@@ -511,7 +507,6 @@ Demikian surat keterangan ini kami buat sesuai dengan keadaan yang sebenarnya da
 </table>
 ',
                 'variables' => [
-                    ['name' => 'nomor_surat', 'label' => 'Nomor Surat', 'type' => 'text'],
                     ['name' => 'nama_pelapor', 'label' => 'Nama Pelapor', 'type' => 'text'],
                     ['name' => 'nik_pelapor', 'label' => 'NIK Pelapor', 'type' => 'number'],
                     ['name' => 'tgl_lahir', 'label' => 'Tempat & Tanggal Lahir', 'type' => 'text'],
